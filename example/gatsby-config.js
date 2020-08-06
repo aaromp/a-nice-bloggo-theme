@@ -1,7 +1,7 @@
 module.exports = {
   plugins: [
     {
-      resolve: `@draftbox-co/gatsby-ghost-novela-theme`,
+      resolve: `a-nice-bloggo-theme`,
       options: {
         siteConfig: {
           siteUrl: "https://ghost-novela-preview.draftbox.co",

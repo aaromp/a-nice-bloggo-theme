@@ -1,12 +1,12 @@
 {
-  "name": "@draftbox-co/gatsby-ghost-novela-theme",
-  "description": "A Gatsby theme plugin for creating blogs from headless Ghost CMS.",
-  "version": "1.0.32",
+  "name": "a-nice-bloggo-theme",
+  "description": "a theme plugin for creating blogs from headless Ghost CMS.",
+  "version": "1.0.0",
   "main": "index.js",
-  "author": "Draftbox",
-  "homepage": "https://github.com/draftbox-co/gatsby-ghost-novela-theme",
+  "author": "Aaron Ward",
+  "homepage": "https://aaronward.info",
   "repository": {
-    "url": "https://github.com/draftbox-co/gatsby-ghost-novela-theme",
+    "url": "https://aaronward.info",
     "type": "git"
   },
   "license": "MIT",
@@ -16,7 +16,6 @@
     "gatsby-theme",
     "ghost",
     "ghost-theme",
-    "novela",
     "blogging",
     "static-site",
     "static-site-generator",
