@@ -1,20 +1,11 @@
-[![Draftbox](https://res.cloudinary.com/thinkcdnimages/image/upload/v1589291053/Draftbox/draftbox-for-github.svg)](https://draftbox.co)
-
-# gatsby-ghost-novela-theme
+# a-nice-bloggo-theme
 
 A Gatsby theme plugin for creating blogs from headless Ghost CMS.
 
-Turn your Ghost blog into a lightning fast static website. This Gatsby theme is a frontend replacement of the Ghost handlebars engine featuring Novela theme skin and functionality. All content is sourced from a headless Ghost CMS.
-
-> This theme is being used at [Draftbox](https://draftbox.co). Get lightning fast, secure front-end for your WordPress or Ghost blog, in 5 minutes or less, without coding. For our fellow devs, we also provide code export feature.
-
-## Demo
-
-Play with the [Demo](https://ghost-novela-preview.draftbox.co/) to get a first impression.
+Turn your Ghost blog into a lightning fast static website. This Gatsby theme is a frontend replacement of the Ghost handlebars engine. All content is sourced from a headless Ghost CMS.
 
 ## Features
 
-- Novela theme by Narrative
 - SEO optimized
 - Fully responsive
 - Gatsby images
@@ -29,16 +20,14 @@ Play with the [Demo](https://ghost-novela-preview.draftbox.co/) to get a first i
 
 ## Installation
 
-> Head over to the [starter repo](https://github.com/draftbox-co/gatsby-ghost-novela-starter) to get up and running quickly!
-
 If you want to add this blog theme to an existing site, follow these instructions:
 
 1. Install the blog theme
 
    ```bash
-   yarn add @draftbox-co/gatsby-ghost-novela-theme
+   yarn add a-nice-bloggo-theme
    # or
-   npm install @draftbox-co/gatsby-ghost-novela-theme --save
+   npm install a-nice-bloggo-theme --save
    ```
 
 2. Add the following configuration to your `gatsby-config.js` file
@@ -48,51 +37,51 @@ If you want to add this blog theme to an existing site, follow these instruction
    module.exports = {
      plugins: [
        {
-         resolve: `@draftbox-co/gatsby-ghost-novela-theme`,
+         resolve: `a-nice-bloggo-theme`,
          options: {
            siteConfig: {
-             siteUrl: "https://ghost-novela-preview.draftbox.com",
+             siteUrl: "https://aaronward.info",
              postsPerPage: 12,
-             siteTitleMeta: "Built with Draftbox",
+             siteTitleMeta: "a nice bloggo",
              siteDescriptionMeta:
-               "Lightning fast, secure front-end for your WordPress or Ghost blog, without coding.",
+               "a very nice bloggo.",
              shareImageWidth: 1000,
              shareImageHeight: 523,
-             shortTitle: "Built with Draftbox",
+             shortTitle: "a nice bloggo",
              siteIcon: "favicon.png",
              backgroundColor: "#e9e9e9",
              themeColor: "#15171A",
-             apiUrl: "https://ghost.theasdfghjkl.com",
+             apiUrl: "https://blog.aaronward.info",
              header: {
                navigation: [
                  {
                    label: "Home",
-                   url: "https://ghost-novela-preview.draftbox.co/",
+                   url: "https://aaronward.info/",
                  },
                  {
                    label: "Contact",
-                   url: "https://ghost-novela-preview.draftbox.co/contact",
+                   url: "https://aaronward.info/contact",
                  },
                ],
              },
              footer: {
-               copyright: "Built with Draftbox",
+               copyright: "a nice bloggo",
                navigation: [
                  {
                    label: "Home",
-                   url: "https://ghost-novela-preview.draftbox.co/",
+                   url: "https://aaronward.info/",
                  },
                  {
                    label: "Sitemap",
-                   url: "https://ghost-novela-preview.draftbox.co/sitemap.xml",
+                   url: "https://aaronward.info/sitemap.xml",
                  },
                  {
                    label: "RSS",
-                   url: "https://ghost-novela-preview.draftbox.co/rss.xml",
+                   url: "https://aaronward.info/rss.xml",
                  },
                  {
                    label: "Contact",
-                   url: "https://ghost-novela-preview.draftbox.co/contact",
+                   url: "https://aaronward.info/contact",
                  },
                  {
                    label: "External Link",
@@ -101,19 +90,19 @@ If you want to add this blog theme to an existing site, follow these instruction
                ],
              },
              subscribeWidget: {
-               title: "Subscribe to Built with Draftbox",
+               title: "Subscribe to a nice bloggo",
                helpText: "Get the latest posts delivered right to your inbox.",
-               successMessage: "Thanks for subscribing to Built with Draftbox.",
+               successMessage: "Thanks for subscribing to a nice bloggo.",
              },
              socialLinks: {
-               twitter: "https://twitter.com/draftboxhq",
+               twitter: "https://twitter.com/",
                facebook: "https://facebook.com/",
                instagram: "https://www.instagram.com/",
                linkedin: "https://linkedin.com",
-               github: "https://github.com/draftbox-co",
+               github: "https://github.com/",
              },
              contactWidget: {
-               title: "Contact Built with Draftbox",
+               title: "Contact a nice bloggo",
                successMessage: "We’ll get in touch with you soon.",
              },
            },
@@ -153,17 +142,9 @@ gatsby develop
 
 You can disable the default Ghost Handlebars Theme front-end by enabling the `Make this site private` flag within your Ghost settings. This enables password protection in front of the Ghost install and sets `<meta name="robots" content="noindex" />` so your Gatsby front-end becomes the source of truth for SEO.
 
-## Authors
-
-- Arun Priyadarshi ([@Gunnerforlife](https://github.com/Gunnerforlife)) – [Draftbox](https://draftbox.co)
-- Keyur Raval ([@thandaanda](https://github.com/thandaanda)) – [Draftbox](https://draftbox.co)
-- Shyam Lohar ([@shyamlohar](https://github.com/shyamlohar)) – [Draftbox](https://draftbox.co)
-- Tanmay Desai ([@tanmaydesai89](https://github.com/tanmaydesai89)) – [Draftbox](https://draftbox.co)
-
-## Contributions
-
-PRs are welcome! Consider contributing to this project if you are missing feature that is also useful for others.
+## Credits
+Forked from [gatsby-ghost-novela-theme](https://github.com/draftbox-co/gatsby-ghost-novela-theme)
 
 # Copyright & License
 
-Copyright (c) 2020 [Draftbox](https://draftbox.co) - Released under the [MIT license](LICENSE).
+Copyright (c) 2020 [Aaron Ward](https://aaronward.info) - Released under the [MIT license](LICENSE).
