@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: "https://localhost:8000",
+  siteUrl: "http://localhost:8000",
   postsPerPage: 12,
   siteTitleMeta: "Aaron Ward",
   siteDescriptionMeta:
@@ -15,7 +15,7 @@ module.exports = {
     navigation: [
       {
         label: "Home",
-        url: "https://localhost:8000/",
+        url: "http://localhost:8000/",
       },
     ],
   },
@@ -24,15 +24,15 @@ module.exports = {
     navigation: [
       {
         label: "Home",
-        url: "https://localhost:8000/",
+        url: "http://localhost:8000/",
       },
       {
         label: "Sitemap",
-        url: "https://localhost:8000/sitemap.xml",
+        url: "http://localhost:8000/sitemap.xml",
       },
       {
         label: "RSS",
-        url: "https://localhost:8000/rss.xml",
+        url: "http://localhost:8000/rss.xml",
       },
     ],
   },
