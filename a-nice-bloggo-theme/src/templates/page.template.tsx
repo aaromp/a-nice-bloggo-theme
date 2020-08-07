@@ -113,7 +113,6 @@ const Page: Template = ({ pageContext, location }) => {
       <MetaData data={{ ghostPage: article }} location={location} />
       <ArticleHero article={article} authors={article.authors} />
       <ArticleAside contentHeight={contentHeight}>
-        <Progress contentHeight={contentHeight} />
       </ArticleAside>
       <MobileControls>
         <ArticleControls />
@@ -210,7 +209,7 @@ const ArticleBody = styled.article`
   ${mediaqueries.desktop`
     padding-left: 53px;
   `}
-  
+
   ${mediaqueries.tablet`
     padding: 70px 0 80px;
   `}

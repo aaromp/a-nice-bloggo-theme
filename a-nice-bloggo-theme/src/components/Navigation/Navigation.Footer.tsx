@@ -59,14 +59,12 @@ const Footer: React.FC<{}> = () => {
 
   return (
     <>
-      <FooterGradient />
       <Section narrow>
         <HoritzontalRule />
         <FooterContainer>
-          <FooterText>
-            {/* © {copyrightDate} {name} */}
-            {footer.copyright} © {new Date().getFullYear()}
-          </FooterText>
+          <SocialLinksContainer>
+            <SocialLinks links={social} />
+          </SocialLinksContainer>
           <FooterLinksContainer>
             {footer.navigation.map(({ label, url }, index) => {
               return url.startsWith("/") ||
@@ -110,18 +108,12 @@ const Footer: React.FC<{}> = () => {
               Contact Us
             </FooterLink> */}
           </FooterLinksContainer>
-          <SocialLinksContainer>
-            <SocialLinks links={social} />
-          </SocialLinksContainer>
+          <FooterText>
+            {/* © {copyrightDate} {name} */}
+            {footer.copyright} © {new Date().getFullYear()}
+          </FooterText>
         </FooterContainer>
         <CreditsContainer>
-          <FooterLink
-            rel="noreferrer noopener"
-            href="https://draftbox.co"
-            target="_blank"
-          >
-            PUBLISHED WITH DRAFTBOX
-          </FooterLink>
         </CreditsContainer>
       </Section>
     </>
@@ -162,6 +154,19 @@ const HoritzontalRule = styled.div`
   `}
 `;
 
+const SocialLinksContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  width: 25%;
+
+  ${mediaqueries.tablet`
+    width: 100%;
+    justify-content: center;
+  `}
+`;
+
 const FooterText = styled.div`
     width: 25%;
 
@@ -170,7 +175,6 @@ const FooterText = styled.div`
       text-align: center;
     `}
 
-
   // ${mediaqueries.tablet`
   //   margin-bottom: 80px;
   // `}
@@ -178,31 +182,6 @@ const FooterText = styled.div`
   // ${mediaqueries.phablet`
   //   margin: 120px auto 100px;
   // `}
-`;
-
-const FooterGradient = styled.div`
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 590px;
-  z-index: 0;
-  pointer-events: none;
-  background: ${(p) => p.theme.colors.gradient};
-  transition: ${(p) => p.theme.colorModeTransition};
-`;
-
-const SocialLinksContainer = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-end;
-  align-items: center;
-  width: 25%;
-
-  ${mediaqueries.tablet`
-    width: 100%;
-    justify-content: center;
-  `}
 `;
 
 const FooterLinksContainer = styled.div`
