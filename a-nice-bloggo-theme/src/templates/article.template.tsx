@@ -190,7 +190,7 @@ const Article: Template = ({ pageContext, location }) => {
               href={whatsAppShareUrl}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label="Pinterest Share"
+              aria-label="WhatsApp Share"
             >
               <WhatsappIcon fill="#73737D" />
             </ShareButton>
@@ -202,7 +202,7 @@ const Article: Template = ({ pageContext, location }) => {
             >
               <MailToIcon fill="#73737D" />
             </ShareButton>
-            <ShareButton>
+            <ShareButton aria-label="Copy Link">
               <CopyLink textToCopy={href} fill="#73737D" />
             </ShareButton>
           </ShareButtonsContainer>

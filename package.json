@@ -7,7 +7,8 @@
   "scripts": {
     "develop": "yarn workspace a-nice-bloggo develop",
     "clean": "yarn workspace a-nice-bloggo clean",
-    "build": "yarn workspace a-nice-bloggo build"
+    "build": "yarn workspace a-nice-bloggo build",
+    "serve": "yarn workspace a-nice-bloggo serve"
   },
   "workspaces": [
     "a-nice-bloggo-theme",

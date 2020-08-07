@@ -4,7 +4,7 @@
         "contentApiKey": "3d17fad3efaa911df1ed577638"
     },
     "production": {
-        "apiUrl": "https://blog.aaronward.info",
-        "contentApiKey": "f0ac666a6da87a25542047ca3e"
+      "apiUrl": "https://ghost.theasdfghjkl.com",
+      "contentApiKey": "3d17fad3efaa911df1ed577638"
     }
 }
