@@ -45,7 +45,7 @@ const ArticlesList: React.FC<ArticlesListProps> = ({
   if (!articles) return null;
 
   const hasOnlyOneArticle = articles.length === 1;
-  const { gridLayout = "tiles", hasSetGridLayout, getGridLayout } = useContext(
+  const { gridLayout = "rows", hasSetGridLayout, getGridLayout } = useContext(
     GridLayoutContext
   );
 
@@ -207,7 +207,7 @@ const listTile = (p) => css`
 
   ${mediaqueries.tablet`
     grid-template-columns: 1fr;
-    
+
     &:not(:last-child) {
       margin-bottom: 0;
     }
@@ -321,11 +321,11 @@ const Title = styled(Headings.h2)`
   `}
 
   ${mediaqueries.tablet`
-    font-size: 24px;  
+    font-size: 24px;
   `}
 
   ${mediaqueries.phablet`
-    font-size: 22px;  
+    font-size: 22px;
     padding: 30px 20px 0;
     margin-bottom: 10px;
     -webkit-line-clamp: 3;
