@@ -103,10 +103,7 @@ const Footer: React.FC<{}> = () => {
             </FooterLink>
             <FooterLink as={Link} to="/rss.xml">
               RSS
-            </FooterLink>
-            <FooterLink as={Link} to="/contact">
-              Contact Us
-            </FooterLink> */}
+            </FooterLink>  */}
           </FooterLinksContainer>
           <FooterText>
             {/* © {copyrightDate} {name} */}

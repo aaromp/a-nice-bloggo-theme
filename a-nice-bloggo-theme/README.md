@@ -13,7 +13,6 @@ Turn your Ghost blog into a lightning fast static website. This Gatsby theme is 
 - RSS Feed
 - AMP Pages
 - Sitemap
-- Contact Form
 - Subscribe Form
 - Social Sharing
 - Composable and extensible
@@ -58,10 +57,6 @@ If you want to add this blog theme to an existing site, follow these instruction
                    label: "Home",
                    url: "https://aaronward.info/",
                  },
-                 {
-                   label: "Contact",
-                   url: "https://aaronward.info/contact",
-                 },
                ],
              },
              footer: {
@@ -79,14 +74,6 @@ If you want to add this blog theme to an existing site, follow these instruction
                    label: "RSS",
                    url: "https://aaronward.info/rss.xml",
                  },
-                 {
-                   label: "Contact",
-                   url: "https://aaronward.info/contact",
-                 },
-                 {
-                   label: "External Link",
-                   url: "https://spectrum.chat/gatsby-js/themes?tab=posts",
-                 },
                ],
              },
              subscribeWidget: {
@@ -100,10 +87,6 @@ If you want to add this blog theme to an existing site, follow these instruction
                instagram: "https://www.instagram.com/",
                linkedin: "https://linkedin.com",
                github: "https://github.com/",
-             },
-             contactWidget: {
-               title: "Contact a nice bloggo",
-               successMessage: "We’ll get in touch with you soon.",
              },
            },
            ghostConfig: {

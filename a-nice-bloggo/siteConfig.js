@@ -17,10 +17,6 @@ module.exports = {
         label: "Home",
         url: "https://localhost:8000/",
       },
-      {
-        label: "Contact",
-        url: "https://localhost:8000/contact",
-      },
     ],
   },
   footer: {
@@ -37,10 +33,6 @@ module.exports = {
       {
         label: "RSS",
         url: "https://localhost:8000/rss.xml",
-      },
-      {
-        label: "Contact",
-        url: "https://localhost:8000/contact",
       },
     ],
   },
@@ -62,10 +54,6 @@ module.exports = {
     behance: "",
     externalLink: "",
     whatsapp: "",
-  },
-  contactWidget: {
-    title: "Contact Aaron Ward",
-    successMessage: "We’ll get in touch with you soon.",
   },
   metadata: {
     title: "Aaron Ward",

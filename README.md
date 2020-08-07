@@ -11,7 +11,6 @@ A Gatsby theme plugin for creating blogs from headless Ghost CMS.
 - RSS Feed
 - AMP Pages
 - Sitemap
-- Contact Form
 - Subscribe Form
 - Social Sharing
 - Composable and extensible
