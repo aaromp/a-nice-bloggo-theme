@@ -20,10 +20,7 @@ module.exports = (themeOptions) => {
     siteMetadata: siteConfig,
     plugins: [
       `gatsby-plugin-typescript`,
-      `gatsby-image`,
       `gatsby-plugin-react-helmet`,
-      `gatsby-plugin-sharp`,
-      `gatsby-transformer-sharp`,
       `gatsby-plugin-mdx`,
       `gatsby-plugin-catch-links`,
       `gatsby-plugin-force-trailing-slashes`,
@@ -34,6 +31,9 @@ module.exports = (themeOptions) => {
           name: `images`,
         },
       },
+      `gatsby-image`,
+      `gatsby-plugin-sharp`,
+      `gatsby-transformer-sharp`,
       {
         resolve: `gatsby-plugin-emotion`,
         options: {

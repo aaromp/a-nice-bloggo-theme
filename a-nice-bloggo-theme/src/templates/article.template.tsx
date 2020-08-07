@@ -24,8 +24,6 @@ import Icons from "@icons";
 import CopyLink from "@components/Misc/CopyLink";
 import { Styled } from "theme-ui";
 import HorizontalRule from "@components/HorizontalRule";
-import Disqus from "@components/disqus";
-import FbComments from "@components/fb-comments";
 import { InView } from "react-intersection-observer";
 
 const LinkedInIcon = Icons.LinkedIn;
@@ -211,22 +209,6 @@ const Article: Template = ({ pageContext, location }) => {
           as="div"
           onChange={(inView) => handleCommentsVisibility(inView)}
         ></InView>
-        {process.env.GATSBY_DISQUS_SHORTNAME && showComments && (
-          <>
-            <HorizontalRule />
-            <EmbedContainer>
-              <Disqus slug={article.slug} title={article.title} />
-            </EmbedContainer>
-          </>
-        )}
-        {process.env.GATSBY_FB_APP_ID && showComments && (
-          <>
-            <HorizontalRule />
-            <EmbedContainer>
-              <FbComments href={href} />
-            </EmbedContainer>
-          </>
-        )}
       </ArticleBody>
 
       <Subscription />
