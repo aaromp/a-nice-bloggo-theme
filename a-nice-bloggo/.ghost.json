@@ -1,0 +1,10 @@
+{
+    "development": {
+        "apiUrl": "https://blog.aaronward.info",
+        "contentApiKey": "f0ac666a6da87a25542047ca3e"
+    },
+    "production": {
+        "apiUrl": "https://blog.aaronward.info",
+        "contentApiKey": "f0ac666a6da87a25542047ca3e"
+    }
+}
