@@ -59,7 +59,6 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     authorsPage = true,
     // pageLength = 6,
     sources = {},
-    mailchimp = "",
   } = themeOptions;
 
   const { data } = await graphql(`
@@ -181,7 +180,6 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
         id: article.id,
         title: article.title,
         canonicalUrl: article.canonical_url,
-        mailchimp,
         next,
       },
     });
@@ -223,14 +221,6 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     });
   });
 
-  // /**
-  //  * By default the author's page is not enabled. This can be enabled through the theme options.
-  //  * If enabled, each author will get their own page and a list of the articles they have written.
-  //  */
-  // if (authorsPage) {
-  //   log('Creating', 'authors page');
-  // }
-
   // Authors Pages builder
 
   const articlesWithFlatAuthorNames = articles.map((article) => ({
@@ -239,11 +229,6 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   }));
 
   authors.forEach((author) => {
-    // const articlesTheAuthorHasWritten = articlesThatArentSecret.filter(
-    //   (article) =>
-    //     article.author.toLowerCase().includes(author.name.toLowerCase())
-    // );
-
     const articlesTheAuthorHasWritten = articlesWithFlatAuthorNames.filter(
       (article) => article.authors.includes(author.slug)
     );

@@ -61,7 +61,7 @@ const Article: Template = ({ pageContext, location }) => {
   const results = useStaticQuery(siteQuery);
   const name = results.ghostSettings.title;
 
-  const { article, authors, mailchimp, next } = pageContext;
+  const { article, authors, next } = pageContext;
 
   const twitterShareUrl = `https://twitter.com/share?text=${article.title}&url=${href}`;
 

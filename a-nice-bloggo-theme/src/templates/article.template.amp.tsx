@@ -107,7 +107,7 @@ const PostTemplate: React.FC<PostTemplateProps> = ({
             </div>
           )}
 
-          <div className="comment-button-container">
+          <div className="article-button-container">
             <button>
               <a href={`/${data.ghostPost.slug}`}>View original article</a>
             </button>

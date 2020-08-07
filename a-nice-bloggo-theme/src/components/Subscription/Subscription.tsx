@@ -1,4 +1,3 @@
-import addToMailchimp from "gatsby-plugin-mailchimp";
 import React, { useState } from "react";
 
 import Section from "@components/Section";
