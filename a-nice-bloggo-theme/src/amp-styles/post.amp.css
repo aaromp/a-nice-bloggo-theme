@@ -651,12 +651,12 @@ amp-img img {
   color: black;
 }
 
-.comment-button-container {
+.article-button-container {
   margin: 2.25rem auto;
   text-align: center;
 }
 
-.comment-button-container button {
+.article-button-container button {
   background: transparent;
   border-style: solid;
   border-radius: 4px;
@@ -665,7 +665,7 @@ amp-img img {
   padding: 8px 22px;
 }
 
-.comment-button-container a {
+.article-button-container a {
   color: cornflowerblue;
   font-weight: 600;
   text-decoration: none;

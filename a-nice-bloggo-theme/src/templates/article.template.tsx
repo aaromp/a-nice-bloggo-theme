@@ -24,7 +24,6 @@ import Icons from "@icons";
 import CopyLink from "@components/Misc/CopyLink";
 import { Styled } from "theme-ui";
 import HorizontalRule from "@components/HorizontalRule";
-import { InView } from "react-intersection-observer";
 
 const LinkedInIcon = Icons.LinkedIn;
 const FacebookIcon = Icons.Facebook;
@@ -46,14 +45,6 @@ const Article: Template = ({ pageContext, location }) => {
   const [href, sethref] = useState("");
 
   const [origin, setOrigin] = useState("");
-
-  const [showComments, setShowComments] = useState(false);
-
-  const handleCommentsVisibility = (inView) => {
-    if (inView && !showComments) {
-      setShowComments(true);
-    }
-  };
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -205,10 +196,6 @@ const Article: Template = ({ pageContext, location }) => {
             </ShareButton>
           </ShareButtonsContainer>
         </SocialShareContainer>
-        <InView
-          as="div"
-          onChange={(inView) => handleCommentsVisibility(inView)}
-        ></InView>
       </ArticleBody>
 
       <Subscription />
