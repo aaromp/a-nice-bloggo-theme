@@ -42,10 +42,6 @@ module.exports = {
         label: "Contact",
         url: "https://localhost:8000/contact",
       },
-      {
-        label: "External Link",
-        url: "https://spectrum.chat/gatsby-js/themes?tab=posts",
-      },
     ],
   },
   subscribeWidget: {
