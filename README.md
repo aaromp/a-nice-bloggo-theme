@@ -4,7 +4,6 @@ A Gatsby theme plugin for creating blogs from headless Ghost CMS.
 
 ## Features
 
-- Novela theme by Narrative
 - SEO optimized
 - Fully responsive
 - Gatsby images
