@@ -12,6 +12,8 @@ import { Template, IAuthor } from "@types";
 import { MetaData } from "@components/meta";
 import mediaqueries from "@styles/media";
 
+
+/* template for the main page featuring a list of list of articles */
 const ArticlesPage: Template = ({ location, pageContext }) => {
   const articles = pageContext.group;
 

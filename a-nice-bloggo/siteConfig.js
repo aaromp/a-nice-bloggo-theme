@@ -1,6 +1,6 @@
 module.exports = {
   siteUrl: "http://localhost:8000",
-  postsPerPage: 12,
+  postsPerPage: 6,
   siteTitleMeta: "Aaron Ward",
   siteDescriptionMeta:
     "Lightning fast, secure front-end for your WordPress or Ghost blog, without coding.",
