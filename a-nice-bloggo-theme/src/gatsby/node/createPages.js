@@ -102,7 +102,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     const ghostAuthors = await graphql(query.ghost.authors);
     const ghostTags = await graphql(query.ghost.tags);
     const ghostPages = await graphql(query.ghost.pages);
-    const ghostSettingsData = await graphql(query.ghost.siteSettings);
+    const ghostSettingsData = await graphql(query.ghost.settings);
 
     dataSources.ghost.articles = ghostArticles.data.articles.edges.map(
       normalize.ghost.articles
@@ -119,7 +119,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
 
     dataSources.ghost.tags = ghostTags.data.tags.edges.map((tag) => tag.node);
 
-    websiteTitle = ghostSettingsData.data.site.siteMetadata.siteTitle;
+    websiteTitle = ghostSettingsData.data.settings.edges[0].node.title;
   } catch (error) {
     console.log(error);
   }

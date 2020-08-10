@@ -20,7 +20,11 @@ const siteQuery = graphql`
       siteMetadata {
         siteUrl
         apiUrl
-        header {
+      }
+    }
+    allGhostSettings {
+      edges {
+        node {
           navigation {
             label
             url
@@ -88,7 +92,6 @@ const SharePageButton: React.FC<{}> = () => {
 };
 
 const NavigationHeader: React.FC<{}> = () => {
-  const [showBackArrow, setShowBackArrow] = useState<boolean>(false);
   const [previousPath, setPreviousPath] = useState<string>("/");
   const [menuToggled, setMenuToggled] = useState(false);
   const {
@@ -97,10 +100,11 @@ const NavigationHeader: React.FC<{}> = () => {
       siteMetadata: {
         siteUrl,
         apiUrl,
-        header: { navigation },
       },
     },
+    allGhostSettings,
   } = useStaticQuery(siteQuery);
+  const navigation = allGhostSettings.edges[0].node.navigation
 
   const [colorMode] = useColorMode();
   const fill = colorMode === "dark" ? "#fff" : "#000";
@@ -113,13 +117,7 @@ const NavigationHeader: React.FC<{}> = () => {
           data-a11y="false"
           title="Navigate back to the homepage"
           aria-label="Navigate back to the homepage"
-          back={showBackArrow ? "true" : "false"}
         >
-          {/* {showBackArrow && (
-            <BackArrowIconContainer>
-              <Icons.ChevronLeft fill={fill} />
-            </BackArrowIconContainer>
-          )} */}
           <Logo fill={fill} />
           <Hidden>Navigate back to the homepage</Hidden>
         </LogoLink>
@@ -172,23 +170,6 @@ const NavigationHeader: React.FC<{}> = () => {
 
 export default NavigationHeader;
 
-const BackArrowIconContainer = styled.div`
-  transition: 0.2s transform var(--ease-out-quad);
-  opacity: 0;
-  padding-right: 30px;
-  animation: fadein 0.3s linear forwards;
-
-  @keyframes fadein {
-    to {
-      opacity: 1;
-    }
-  }
-
-  ${mediaqueries.desktop_medium`
-    display: none;
-  `}
-`;
-
 const NavContainer = styled.div`
   position: relative;
   z-index: 100;
@@ -209,11 +190,11 @@ const NavContainer = styled.div`
   `}
 `;
 
-const LogoLink = styled(Link)<{ back: string }>`
+const LogoLink = styled(Link)`
   position: relative;
   display: flex;
   align-items: center;
-  left: ${(p) => (p.back === "true" ? "-54px" : 0)};
+  left: 0;
 
   ${mediaqueries.desktop_medium`
     left: 0
@@ -233,12 +214,6 @@ const LogoLink = styled(Link)<{ back: string }>`
     border: 2px solid ${(p) => p.theme.colors.accent};
     background: rgba(255, 255, 255, 0.01);
     border-radius: 5px;
-  }
-
-  &:hover {
-    ${BackArrowIconContainer} {
-      transform: translateX(-3px);
-    }
   }
 `;
 

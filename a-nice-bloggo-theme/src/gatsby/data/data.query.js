@@ -24,7 +24,7 @@ module.exports.ghost = {
           title
           og_title
           og_description
-          feature_image 
+          feature_image
           featured
           twitter_title
           twitter_description
@@ -107,7 +107,7 @@ module.exports.ghost = {
           title
           og_title
           og_description
-          feature_image 
+          feature_image
           twitter_title
           twitter_description
           meta_title
@@ -185,7 +185,7 @@ module.exports.ghost = {
           slug
           postCount
           profile_image
-          twitter 
+          twitter
           facebook
         }
       }
@@ -204,10 +204,12 @@ module.exports.ghost = {
       }
     }
   }`,
-  siteSettings: `{
-    site {
-      siteMetadata {
-        siteTitle
+  settings: `{
+    settings: allGhostSettings {
+      edges {
+        node {
+          title
+        }
       }
     }
   }`,
