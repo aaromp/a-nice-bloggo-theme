@@ -10,39 +10,30 @@ import { useColorMode } from "theme-ui";
 
 const Logo: Icon = ({ fill = "white" }) => {
   const [colorMode] = useColorMode();
+  /* TODO: Remove if you decide to use a logo */
+  const useLogo = false;
 
   const {
-    site: {
-      siteMetadata: { logoUrl, alternateLogoUrl, siteTitle, siteUrl },
-    },
+    ghostSettings: { title, logo },
   } = useStaticQuery(graphql`
     {
-      site {
-        siteMetadata {
-          siteUrl
-          siteTitle
-          logoUrl
-          alternateLogoUrl
-        }
+      ghostSettings {
+        title
+        logo
       }
     }
   `);
 
   return (
     <LogoContainer>
-      {logoUrl || alternateLogoUrl ? (
-        <img
+     {useLogo && logo ?
+       <img
           className="logo"
-          src={
-            colorMode === "dark"
-              ? url.resolve(siteUrl, alternateLogoUrl)
-              : url.resolve(siteUrl, logoUrl)
-          }
-          alt=""
-        />
-      ) : (
-        <LogoAlt>{siteTitle}</LogoAlt>
-      )}
+          src={ logo }
+          alt={ title + " logo" }
+        /> : null
+      }
+      <LogoAlt>{ title }</LogoAlt>
     </LogoContainer>
   );
 };
@@ -50,8 +41,12 @@ const Logo: Icon = ({ fill = "white" }) => {
 export default Logo;
 
 const LogoContainer = styled.div`
+  display: flex;
+  align-items: center;
+
   .logo {
     height: 32px;
+    padding-right: 24px;
   }
 
   ${mediaqueries.phablet`
@@ -69,7 +64,7 @@ const LogoContainer = styled.div`
     .Logo__Desktop {
       display: none;
     }
-    
+
     .Logo__Mobile{
       display: block;
     }
@@ -79,5 +74,6 @@ const LogoContainer = styled.div`
 const LogoAlt = styled.h1`
   color: ${(p) => p.theme.colors.primary};
   font-weight: var(--system-font-bold);
+  // white-space: nowrap;
   font-size: 22px;
 `;

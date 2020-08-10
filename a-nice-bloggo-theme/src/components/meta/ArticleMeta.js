@@ -12,6 +12,7 @@ import { tags as tagsHelper } from "@tryghost/helpers";
 
 const ArticleMetaGhost = ({ data, settings, canonical, amp }) => {
   const ghostPost = data;
+  const ghostSettings = settings.allGhostSettings.edges[0].node;
   const config = settings.site.siteMetadata;
 
   const author = getAuthorProperties(ghostPost.primary_author);
@@ -37,9 +38,8 @@ const ArticleMetaGhost = ({ data, settings, canonical, amp }) => {
     : null;
 
   const publisherLogo =
-    config.logoUrl || config.alternateLogoUrl
-      ? url.resolve(config.siteUrl, config.logoUrl || config.alternateLogoUrl)
-      : null;
+    ghostSettings.logo ? url.resolve(config.siteUrl, ghostSettings.logo)
+                       : null;
 
   const jsonLd = {
     "@context": `https://schema.org/`,

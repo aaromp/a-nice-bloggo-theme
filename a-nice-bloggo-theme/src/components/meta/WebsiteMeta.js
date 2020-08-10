@@ -20,10 +20,8 @@ const WebsiteMeta = ({
 
   settings = settings.allGhostSettings.edges[0].node;
 
-  const publisherLogo =
-    config.logoUrl || config.alternateLogoUrl
-      ? url.resolve(config.siteUrl, config.logoUrl || config.alternateLogoUrl)
-      : null;
+  const publisherLogo = settings.url ? url.resolve(settings.url)
+                                     : null;
 
   let shareImage =
     config.coverUrl ||

@@ -38,8 +38,6 @@ export const siteMetadataFields = graphql`
     siteTitle
     siteDescription
     language
-    logoUrl
-    alternateLogoUrl
     coverUrl
     metadata {
       title
