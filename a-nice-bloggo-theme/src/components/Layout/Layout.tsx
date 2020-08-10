@@ -61,6 +61,7 @@ const Layout: React.FC<{}> = ({ children }) => {
 
 export default Layout;
 
+/* applies the dark/light mode background color transition */
 const Container = styled.div`
   position: relative;
   background: ${(p) => p.theme.colors.background};

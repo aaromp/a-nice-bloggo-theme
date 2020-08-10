@@ -1,17 +1,11 @@
 import React, { createContext } from "react";
 
-// interface Props {
-//   site: string;
-// }
-
-// interface Context {
-//   client: any;
-// }
-
 export const ArmadaFormsContext = createContext({
   client: undefined,
 });
 
+/* This context is used for the subscription form */
+/* TODO: remove or set up a subscription form... */
 ArmadaFormsContext.displayName = "Armada Forms";
 
 export const ArmadaFormsProvider = ({ client, children }) => {
