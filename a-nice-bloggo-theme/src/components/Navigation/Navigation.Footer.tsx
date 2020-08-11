@@ -32,7 +32,14 @@ const siteQuery = graphql`
             label
             url
           }
-          copyright
+        }
+      }
+    }
+    allGhostSettings {
+      edges {
+        node {
+          title
+          url
         }
       }
     }
@@ -46,9 +53,12 @@ const Footer: React.FC<{}> = () => {
 
   const {
     site: {
-      siteMetadata: { socialLinks = [], footer, siteUrl, apiUrl },
+      siteMetadata: { socialLinks = [], footer, apiUrl, siteUrl },
     },
+    allGhostSettings,
   } = results;
+  const title = allGhostSettings.edges[0].node.title;
+  // const siteUrl = allGhostSettings.edges[0].node.url;
 
 
   Object.keys(socialLinks).forEach((key) => {
@@ -107,7 +117,7 @@ const Footer: React.FC<{}> = () => {
           </FooterLinksContainer>
           <FooterText>
             {/* © {copyrightDate} {name} */}
-            {footer.copyright} © {new Date().getFullYear()}
+            {title} © {new Date().getFullYear()}
           </FooterText>
         </FooterContainer>
         <CreditsContainer>

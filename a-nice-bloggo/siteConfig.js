@@ -27,8 +27,8 @@ module.exports = {
         url: "https://ghost-novela-preview.draftbox.co/rss.xml",
       },
       {
-        label: "Contact",
-        url: "https://ghost-novela-preview.draftbox.co/contact",
+        label: "Analytics",
+        url: "https://👁.aaronward.info/",
       },
     ],
   },
