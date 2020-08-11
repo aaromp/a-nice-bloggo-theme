@@ -20,18 +20,5 @@ const AuthorArticles: React.FC<AuthorArticlesProps> = ({ articles }) => {
 
 export default AuthorArticles;
 
-const AuthorArticlesContainer = styled.div`
-  border-radius: 8px;
-  padding: 88px 98px;
-  position: relative;
-  z-index: 1;
-
-  ${mediaqueries.desktop_medium`
-    padding: 80px;
-  `}
-
-  ${mediaqueries.desktop`
-    padding: 0;
-    background: transparent;
-  `}
+const AuthorArticlesContainer = styled.section`
 `;

@@ -12,17 +12,26 @@ interface AuthorHeroProps {
   author: IAuthor;
 }
 
+/* TODO: figure out what to do with the profile image */
+const useProfileImage = false;
+
 const AuthorHero: React.FC<AuthorHeroProps> = ({ author }) => {
   return (
     <Hero>
-      <HeroImage>
-        <RoundedImage alt="Author avatar" src={author.profile_image} />
-      </HeroImage>
-      <Heading>{author.name}</Heading>
-      <Subheading>{author.bio}</Subheading>
-      <Social>
-        <SocialLinks links={author.social} />
-      </Social>
+      <CopyContainer>
+        <UsernameContainer>
+          <Heading>{author.name}</Heading>
+          <Social>
+            <SocialLinks links={author.social} />
+          </Social>
+        </UsernameContainer>
+        <Subheading>{author.bio}</Subheading>
+      </CopyContainer>
+      {useProfileImage && author.profile_image ?
+        <HeroImage>
+          <RoundedImage alt="Author avatar" src={author.profile_image} />
+        </HeroImage> : null
+       }
     </Hero>
   );
 };
@@ -30,78 +39,66 @@ const AuthorHero: React.FC<AuthorHeroProps> = ({ author }) => {
 export default AuthorHero;
 
 const Hero = styled.div`
-  position: relative;
   z-index: 1;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 35px auto 110px;
+  align-items: space-between;
+  margin: 100px 0;
 `;
 
-const HeroImage = styled.div`
-  position: relative;
-  z-index: 1;
-  height: 164px;
-  width: 164px;
-  margin-bottom: 35px;
-  border-radius: 50%;
-  overflow: hidden;
-  border: 2px solid ${(p) => p.theme.colors.background};
-  box-shadow: 0px 15.619px 31.2381px rgba(0, 0, 0, 0.15);
-
-  ${mediaqueries.tablet`
-    width: 146px;
-    height: 146px;
-  `}
-
-  ${mediaqueries.phablet`
-    width: 136px;
-    height: 136px;
-    margin-bottom: 25px;
-  `}
+const CopyContainer = styled.div`
+  flex-grow: 2;
 `;
 
-const RoundedImage = styled(Image)`
-  border-radius: 50%;
-  height: 100%;
-  width: 100%;
+const UsernameContainer = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const Heading = styled.h1`
-  font-size: 38px;
-  font-family: ${(p) => p.theme.fonts.sansSerif};
-  color: ${(p) => p.theme.colors.primary};
-  margin-bottom: 15px;
+  font-style: normal;
   font-weight: var(--system-font-semibold);
+  font-size: 52px;
+  line-height: 1.15;
+  color: ${(p) => p.theme.colors.primary};
 
-  ${mediaqueries.tablet`
+  a {
+    color: ${(p) => p.theme.colors.accent};
+  }
+
+  ${mediaqueries.desktop`
+    font-size: 38px
   `}
 
   ${mediaqueries.phablet`
+    font-size: 32px;
   `}
 `;
 
 const Subheading = styled.p`
-  margin: 0 auto;
-  max-width: 450px;
   color: ${(p) => p.theme.colors.grey};
-  font-size: 18px;
-  font-family: ${(p) => p.theme.fonts.sansSerif};
-  line-height: 1.4;
-  text-align: center;
-
-  ${mediaqueries.phablet`
-    font-size: 14px;
-  `}
+  font-size: 20px;
+  margin-top: 8px;
 `;
 
 const Social = styled.div`
   display: flex;
   align-items: center;
-  margin-top: 35px;
+  margin: 0 16px;
 
   ${mediaqueries.phablet`
     font-size: 14px;
   `}
+`;
+
+const HeroImage = styled.div`
+  overflow: hidden;
+  flex-basis: 100px;
+  flex-shrink: 1;
+  border: 2px solid ${(p) => p.theme.colors.background};
+`;
+
+const RoundedImage = styled(Image)`
+  border-radius: 8px;
+  width: 100%;
+  height: auto;
 `;

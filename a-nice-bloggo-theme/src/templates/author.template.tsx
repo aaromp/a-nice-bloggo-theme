@@ -25,8 +25,10 @@ const ArticlesPage: Template = ({ location, pageContext }) => {
         title={author.name}
         description={author.bio}
       /> */}
-      <Section narrow>
+      <Section>
         <AuthorHero author={author} />
+      </Section>
+      <Section narrow>
         <AuthorArticles articles={articles} />
         <AuthorPaginator>
           <Paginator {...pageContext} />

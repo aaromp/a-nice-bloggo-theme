@@ -81,5 +81,5 @@ const HeroHeading = styled.h1`
 const HeroDescription = styled.p`
   color: ${(p) => p.theme.colors.grey};
   font-size: 20px;
-  margin-top: 10px;
+  margin-top: 8px;
 `;

@@ -12,47 +12,50 @@ const TagHero: React.FC<TagHeroProps> = ({ tag }) => {
   return (
     <Hero>
       <Heading>{tag.name}</Heading>
-      <Subheading>{tag.description}</Subheading>
+      <Subheading>writing a longer subheading description</Subheading>
     </Hero>
   );
 };
 
 export default TagHero;
 
+const TagHeroContainer = styled.section`
+`;
+
 const Hero = styled.div`
-  position: relative;
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin: 35px auto 110px;
+  margin: 100px 0;
+
+  ${mediaqueries.desktop`
+    width: 80%;
+  `}
+
+  ${mediaqueries.tablet`
+    width: 100%;
+  `}
 `;
 
 const Heading = styled.h1`
-  font-size: 38px;
-  font-family: ${(p) => p.theme.fonts.sansSerif};
-  color: ${(p) => p.theme.colors.primary};
-  margin-bottom: 15px;
+  font-style: normal;
   font-weight: var(--system-font-semibold);
+  font-size: 52px;
+  line-height: 1.15;
+  color: ${(p) => p.theme.colors.primary};
 
-  ${mediaqueries.tablet`
+  a {
+    color: ${(p) => p.theme.colors.accent};
+  }
+
+  ${mediaqueries.desktop`
+    font-size: 38px
   `}
 
   ${mediaqueries.phablet`
+    font-size: 32px;
   `}
 `;
 
 const Subheading = styled.p`
-  margin: 0 auto;
-  max-width: 450px;
   color: ${(p) => p.theme.colors.grey};
-  font-size: 18px;
-  font-family: ${(p) => p.theme.fonts.sansSerif};
-  line-height: 1.4;
-  text-align: center;
-
-  ${mediaqueries.phablet`
-    font-size: 14px;
-  `}
+  font-size: 20px;
+  margin-top: 8px;
 `;

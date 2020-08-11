@@ -23,8 +23,10 @@ const TagPage: Template = ({ location, pageContext }) => {
         title={author.name}
         description={author.bio}
       /> */}
-      <Section narrow>
+      <Section>
         <TagHero tag={tag} />
+      </Section>
+      <Section narrow>
         <TagArticles articles={articles} />
         <AuthorPaginator>
           <Paginator {...pageContext} />
