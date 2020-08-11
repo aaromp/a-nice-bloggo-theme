@@ -37,7 +37,6 @@ export const siteMetadataFields = graphql`
     themeColor
     siteTitle
     siteDescription
-    language
     coverUrl
     metadata {
       title

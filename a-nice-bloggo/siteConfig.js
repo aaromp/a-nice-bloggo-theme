@@ -75,7 +75,6 @@ module.exports = {
   siteTitle: "Built with Draftbox",
   siteDescription:
     "Lightning fast, secure front-end for your WordPress or Ghost blog, without coding.",
-  language: "en",
   iconUrl:
     "https://ghost.theasdfghjkl.com/content/images/2020/05/draftbox-colored-icon.png",
   coverUrl: "cover.png",

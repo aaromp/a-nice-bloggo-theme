@@ -91,7 +91,7 @@ const WebsiteMeta = ({
     //images - only if it exists
     // </>
     <>
-      <Helmet htmlAttributes={{ lang: config.language || "auto" }}>
+      <Helmet htmlAttributes={{ lang: settings.lang || "auto" }}>
         <title>{config.metadata.title || config.siteTitle}</title>
         <meta
           name="description"

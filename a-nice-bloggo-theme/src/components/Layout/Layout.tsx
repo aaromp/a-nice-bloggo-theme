@@ -20,19 +20,17 @@ import Helmet from "react-helmet";
 const Layout: React.FC<{}> = ({ children }) => {
   const data = useStaticQuery(graphql`
     {
-      site {
-        siteMetadata {
-          language
+      allGhostSettings {
+        edges {
+          node {
+            lang
+          }
         }
       }
     }
   `);
 
-  const {
-    site: {
-      siteMetadata: { language },
-    },
-  } = data;
+  const lang = data.allGhostSettings.edges[0].node.lang;
 
   const [colorMode] = useColorMode();
 
@@ -45,7 +43,7 @@ const Layout: React.FC<{}> = ({ children }) => {
       <ArticlesContextProvider>
         <Helmet
           htmlAttributes={{
-            lang: language ? language : "auto",
+            lang: lang ? lang : "auto",
           }}
         />
         <Container>
