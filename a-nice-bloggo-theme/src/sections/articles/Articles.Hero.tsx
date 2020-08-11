@@ -3,98 +3,48 @@ import { graphql, useStaticQuery } from "gatsby";
 import styled from "@emotion/styled";
 
 import Section from "@components/Section";
-import Bio from "@components/Bio";
 import Icons from "@icons";
 import mediaqueries from "@styles/media";
 import { IAuthor } from "@types";
 
 import { GridLayoutContext } from "./Articles.List.Context";
-
-const authorQuery = graphql`
+const allGhostSettingsQuery = graphql`
   {
-    site: allSite {
+    allGhostSettings {
       edges {
         node {
-          siteMetadata {
-            hero {
-              heading
-              maxWidth
-            }
-          }
+          title
+          description
         }
       }
     }
   }
 `;
 
-const siteSettingsQuery = graphql`
-  {
-    site {
-      siteMetadata {
-        siteTitle
-        siteDescription
-      }
-    }
-  }
-`;
-
+/* the large title and description that appears at the top of the main list */
 const ArticlesHero: React.FC = () => {
   const { gridLayout = "rows", hasSetGridLayout, setGridLayout } = useContext(
     GridLayoutContext
   );
 
-  // const results = useStaticQuery(authorQuery);
-  const siteSettings = useStaticQuery(siteSettingsQuery);
+  const settings = useStaticQuery(allGhostSettingsQuery);
 
-  const title = siteSettings.site.siteMetadata.siteTitle;
-  const description = siteSettings.site.siteMetadata.siteDescription;
-  // const hero = results.site.edges[0].node.siteMetadata.hero;
+  const title = settings.allGhostSettings.edges[0].node.title;
+  const description = settings.allGhostSettings.edges[0].node.description;
   const tilesIsActive = hasSetGridLayout && gridLayout === "tiles";
-  // const featuredAuthor = authors.find((author) => author.featured);
-
-  // if (!featuredAuthor) {
-  //   throw new Error(`
-  //     No featured Author found.
-  //     Please ensure you have at least featured Author.
-  // `);
-  // }
 
   return (
     <Section relative id="Articles__Hero">
-      {/* <HeadingContainer style={{ maxWidth: `${hero.maxWidth}px` }}>
-        <HeroHeading dangerouslySetInnerHTML={{ __html: hero.heading }} />
-      </HeadingContainer> */}
       <HeadingContainer style={{ maxWidth: `600px` }}>
+        {/*TODO: consider removing this header*/}
         <HeroHeading dangerouslySetInnerHTML={{ __html: title }} />
         <HeroDescription>{description}</HeroDescription>
       </HeadingContainer>
-      <SubheadingContainer>
-        {/* <Bio author={featuredAuthor} /> */}
-      </SubheadingContainer>
     </Section>
   );
 };
 
 export default ArticlesHero;
-
-const SubheadingContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 100px;
-
-  ${mediaqueries.desktop`
-    margin-bottom: 80px;
-  `};
-
-  ${mediaqueries.tablet`
-    margin-bottom: 60px;
-  `};
-
-  ${mediaqueries.phablet`
-    display: none;
-  `};
-`;
 
 const HeadingContainer = styled.div`
   margin: 100px 0;
