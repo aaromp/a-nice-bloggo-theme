@@ -12,7 +12,7 @@ const TagHero: React.FC<TagHeroProps> = ({ tag }) => {
   return (
     <Hero>
       <Heading>{tag.name}</Heading>
-      <Subheading>writing a longer subheading description</Subheading>
+      <Subheading>{tag.description}</Subheading>
     </Hero>
   );
 };

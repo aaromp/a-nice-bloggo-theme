@@ -25,20 +25,20 @@ const ArticleMetaGhost = ({ data, settings, canonical, amp }) => {
   const postHeroImage = ghostPost.hero?.seo?.src;
 
   const shareImage = postHeroImage
-    ? url.resolve(config.siteUrl, postHeroImage)
-    : config.coverUrl ||
-      config.facebookCard.imageUrl ||
-      config.twitterCard.imageUrl
+    ? url.resolve(ghostSettings.url, postHeroImage)
+    : ghostSettings.cover_url ||
+      ghostSettings.og_image ||
+      ghostSettings.twitter_image
     ? url.resolve(
-        config.siteUrl,
-        config.coverUrl ||
-          config.facebookCard.imageUrl ||
-          config.twitterCard.imageUrl
+        ghostSettings.url,
+        ghostSettings.cover_url ||
+          ghostSettings.og_image ||
+          ghostSettings.twitter_image
       )
     : null;
 
   const publisherLogo =
-    ghostSettings.logo ? url.resolve(config.siteUrl, ghostSettings.logo)
+    ghostSettings.logo ? url.resolve(ghostSettings.url, ghostSettings.logo)
                        : null;
 
   const jsonLd = {
@@ -67,7 +67,7 @@ const ArticleMetaGhost = ({ data, settings, canonical, amp }) => {
       : undefined,
     publisher: {
       "@type": `Organization`,
-      name: config.siteTitle,
+      name: ghostSettings.title,
       logo: publisherLogo
         ? {
             "@type": `ImageObject`,
@@ -80,7 +80,7 @@ const ArticleMetaGhost = ({ data, settings, canonical, amp }) => {
     description: ghostPost.meta_description || ghostPost.excerpt,
     mainEntityOfPage: {
       "@type": `WebPage`,
-      "@id": config.siteUrl,
+      "@id": ghostSettings.url,
     },
   };
 
@@ -97,7 +97,7 @@ const ArticleMetaGhost = ({ data, settings, canonical, amp }) => {
         />
         {!amp && <link rel="canonical" href={canonical} />}
 
-        <meta property="og:site_name" content={config.siteTitle} />
+        <meta property="og:site_name" content={ghostSettings.title} />
         <meta property="og:type" content="article" />
         <meta
           property="og:title"
@@ -149,8 +149,8 @@ const ArticleMetaGhost = ({ data, settings, canonical, amp }) => {
         {primaryTag && <meta name="twitter:label2" content="Filed under" />}
         {primaryTag && <meta name="twitter:data2" content={primaryTag} />}
 
-        {config.twitterCard.username && (
-          <meta name="twitter:site" content={config.twitterCard.username} />
+        {ghostSettings.twitter && (
+          <meta name="twitter:site" content={ghostSettings.twitter} />
         )}
         {author.twitter && (
           <meta name="twitter:creator" content={author.twitter} />

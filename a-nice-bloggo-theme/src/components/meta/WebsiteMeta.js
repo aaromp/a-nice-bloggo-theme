@@ -17,25 +17,24 @@ const WebsiteMeta = ({
   type,
 }) => {
   const config = settings.site.siteMetadata;
+  const ghostSettings = settings.allGhostSettings.edges[0].node;
+  const ghostURL = ghostSettings.url;
+  const publisherLogo = ghostURL ? url.resolve(ghostURL)
+                                 : null;
 
-  settings = settings.allGhostSettings.edges[0].node;
-
-  const publisherLogo = settings.url ? url.resolve(settings.url)
-                                     : null;
-
-  let shareImage =
-    config.coverUrl ||
-    config.facebookCard.imageUrl ||
-    config.twitterCard.imageUrl;
-  shareImage = shareImage ? url.resolve(config.siteUrl, shareImage) : null;
-
+  title = ghostSettings.title;
   description =
-    description ||
-    data.meta_description ||
-    data.description ||
-    config.siteDescriptionMeta ||
-    settings.description;
-  title = settings.title;
+    ghostSettings.description ||
+    ghostSettings.meta_description ||
+    ghostSettings.og_description ||
+    ghostSettings.twitter_description;
+
+  console.log(ghostURL);
+  let shareImage =
+    ghostSettings.cover_image ||
+    ghostSettings.og_image ||
+    ghostSettings.twitter_image;
+  shareImage = shareImage ? url.resolve(canonical, shareImage) : null;
 
   const jsonLd = {
     "@context": `https://schema.org/`,
@@ -51,7 +50,7 @@ const WebsiteMeta = ({
       : undefined,
     publisher: {
       "@type": `Organization`,
-      name: config.siteTitle,
+      name: title,
       logo: publisherLogo
         ? {
             "@type": `ImageObject`,
@@ -63,67 +62,29 @@ const WebsiteMeta = ({
     },
     mainEntityOfPage: {
       "@type": `WebPage`,
-      "@id": config.siteUrl,
+      "@id": ghostURL,
     },
-    description: config.metadata.description || config.siteDescription,
+    description: ghostSettings.og_description || ghostSettings.description,
   };
 
   return (
-    // <>
-    //     <Helmet htmlAttributes={{"lang": settings.lang ? settings.lang : "auto"}}>
-    //         <title>{title}</title>
-    //         <meta name="description" content={description} />
-    //         <link rel="canonical" href={canonical} />
-    //         <meta property="og:site_name" content={settings.title} />
-    //         <meta property="og:type" content="website" />
-    //         <meta property="og:title" content={title} />
-    //         <meta property="og:description" content={description} />
-    //         <meta property="og:url" content={canonical} />
-    //         <meta name="twitter:title" content={title} />
-    //         <meta name="twitter:description" content={description} />
-    //         <meta name="twitter:url" content={canonical} />
-    //         {settings.twitter && <meta name="twitter:site" content={`https://twitter.com/${settings.twitter.replace(/^@/, ``)}/`} />}
-    //         {settings.twitter && <meta name="twitter:creator" content={settings.twitter} />}
-    //         <script type="application/ld+json">{JSON.stringify(jsonLd, undefined, 4)}</script>
-    //     </Helmet>
-    //     <ImageMeta image={shareImage} />
-    //twitter/facebook -> meta -> siteTitle
-    //images - only if it exists
-    // </>
     <>
-      <Helmet htmlAttributes={{ lang: settings.lang || "auto" }}>
-        <title>{config.metadata.title || config.siteTitle}</title>
-        <meta
-          name="description"
-          content={config.metadata.description || config.siteDescription}
-        />
+      <Helmet htmlAttributes={{ lang: ghostSettings.lang || "auto" }}>
+        <title>{title}</title>
+        <meta name="description" content={description} />
         <link rel="canonical" href={canonical} />
-
-        <meta property="og:site_name" content={config.siteTitle} />
+        <meta property="og:site_name" content={title} />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content={
-            config.facebookCard.title ||
-            config.metadata.title ||
-            config.siteTitle
-          }
-        />
-        <meta
-          property="og:description"
-          content={
-            config.facebookCard.description ||
-            config.metadata.description ||
-            config.siteDescription
-          }
-        />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
         <meta property="og:url" content={canonical} />
-        {config.facebookCard.imageUrl !== "" && (
+        {ghostSettings.og_image !== "" && (
           <meta
             property="og:image"
-            content={`${config.siteUrl}/${config.facebookCard.imageUrl}`}
+            content={ghostSettings.og_image}
           />
         )}
+        {/* TODO: determine if you want to use this value from the config */}
         {config.facebookCard.width !== "" && (
           <meta property="og:image:width" content={config.facebookCard.width} />
         )}
@@ -136,45 +97,24 @@ const WebsiteMeta = ({
         {config.facebookCard.appId !== "" && (
           <meta property="fb:app_id" content={config.facebookCard.appId} />
         )}
-
-        <meta
-          name="twitter:title"
-          content={
-            config.twitterCard.title ||
-            config.metadata.title ||
-            config.siteTitle
-          }
-        />
-        <meta
-          name="twitter:description"
-          content={
-            config.twitterCard.description ||
-            config.metadata.description ||
-            config.siteDescription
-          }
-        />
+        <meta name="twitter:title" content={title} />
+        <meta name="twitter:description" content={description} />
         <meta name="twitter:url" content={canonical} />
-        {config.twitterCard.username && (
-          <meta name="twitter:site" content={config.twitterCard.username} />
-        )}
-        {config.twitterCard.username && (
-          <meta name="twitter:creator" content={config.twitterCard.username} />
-        )}
-        {config.twitterCard.imageUrl && (
+        {ghostSettings.twitter && <meta name="twitter:site" content={`https://twitter.com/${ghostSettings.twitter.replace(/^@/, ``)}/`} />}
+        {ghostSettings.twitter && <meta name="twitter:creator" content={ghostSettings.twitter} />}
+        {ghostSettings.twitter_image && (
           <meta
             name="twitter:image"
-            content={url.resolve(config.siteUrl, config.twitterCard.imageUrl)}
+            content={url.resolve(ghostSettings.twitter_image)}
           />
         )}
-        {config.twitterCard.imageUrl && (
+        {ghostSettings.twitter_image && (
           <meta name="twitter:card" content="summary_large_image" />
         )}
-
         <script type="application/ld+json">
           {JSON.stringify(jsonLd, undefined, 4)}
         </script>
       </Helmet>
-      {/* <ImageMeta image={shareImage} /> */}
     </>
   );
 };

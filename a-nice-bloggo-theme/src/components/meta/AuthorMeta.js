@@ -10,23 +10,26 @@ import getAuthorProperties from './getAuthorProperties'
 
 const AuthorMeta = ({ data, settings, canonical }) => {
     const config = settings.site.siteMetadata
-    settings = settings.allGhostSettings.edges[0].node
+    const ghostSettings = settings.allGhostSettings.edges[0].node
+
+
 
     const author = getAuthorProperties(data)
+    /* TODO clean up these nested ternary expressions.. */
     const shareImage = author.image
-    ? url.resolve(config.siteUrl, author.image)
-    : config.coverUrl ||
-      config.facebookCard.imageUrl ||
-      config.twitterCard.imageUrl
-    ? url.resolve(
-        config.siteUrl,
-        config.coverUrl ||
-          config.facebookCard.imageUrl ||
-          config.twitterCard.imageUrl
-      )
-    : null;
-    const title = `${data.name} - ${config.siteTitle}`
-    const description = data.bio || config.siteDescription || settings.description
+      ? url.resolve(ghostSettings.url, author.image)
+      : ghostSettings.cover_image ||
+        ghostSettings.og_image ||
+        ghostSettings.twitter_image
+      ? url.resolve(
+        ghostSettings.url,
+        ghostSettings.cover_image ||
+        ghostSettings.og_image ||
+        ghostSettings.twitter_image
+        )
+      : null;
+    const title = `${data.name} - ${ghostSettings.title}`
+    const description = data.bio || ghostSettings.description
 
     const jsonLd = {
         "@context": `https://schema.org/`,
@@ -42,18 +45,18 @@ const AuthorMeta = ({ data, settings, canonical }) => {
         } : undefined,
         mainEntityOfPage: {
             "@type": `WebPage`,
-            "@id": config.siteUrl,
+            "@id": ghostSettings.url,
         },
         description,
     }
 
     return (
         <>
-            <Helmet htmlAttributes={{"lang": settings.lang ? settings.lang : "auto"}}>
+            <Helmet htmlAttributes={{"lang": ghostSettings.lang ? ghostSettings.lang : "auto"}}>
                 <title>{title}</title>
                 <meta name="description" content={description} />
                 <link rel="canonical" href={canonical} />
-                <meta property="og:site_name" content={config.siteTitle} />
+                <meta property="og:site_name" content={ghostSettings.title} />
                 <meta property="og:type" content="profile" />
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={description} />
@@ -61,8 +64,8 @@ const AuthorMeta = ({ data, settings, canonical }) => {
                 <meta name="twitter:title" content={title} />
                 <meta name="twitter:description" content={description} />
                 <meta name="twitter:url" content={canonical} />
-                {config.twitterCard.username && <meta name="twitter:site" content={`https://twitter.com/${config.twitterCard.username.replace(/^@/, ``)}/`} />}
-                {config.twitterCard.username && <meta name="twitter:creator" content={config.twitterCard.usernamer} />}
+                {ghostSettings.twitter && <meta name="twitter:site" content={`https://twitter.com/${ghostSettings.twitter.replace(/^@/, ``)}/`} />}
+                {ghostSettings.twitter && <meta name="twitter:creator" content={ghostSettings.twitter} />}
                 <script type="application/ld+json">{JSON.stringify(jsonLd, undefined, 4)}</script>
             </Helmet>
             <ImageMeta image={shareImage} />

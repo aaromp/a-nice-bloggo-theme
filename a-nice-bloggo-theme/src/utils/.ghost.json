@@ -1,11 +1,10 @@
 {
   "development": {
-    "apiUrl": "https://cms.gotsby.org",
-    "contentApiKey": "387f956eaa95345f7bb484d0b8"
+    "apiUrl": "https://blog.aaronward.info",
+    "contentApiKey": "f0ac666a6da87a25542047ca3e"
   },
   "production": {
-    "apiUrl": "https://cms.gotsby.org",
-    "contentApiKey": "387f956eaa95345f7bb484d0b8"
+    "apiUrl": "https://blog.aaronward.info",
+    "contentApiKey": "f0ac666a6da87a25542047ca3e"
   }
 }
-

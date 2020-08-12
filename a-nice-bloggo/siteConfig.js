@@ -1,5 +1,5 @@
 module.exports = {
-  siteUrl: "https://ghost-novela-preview.draftbox.co",
+  siteUrl: "https://blog.aaronward.info",
   postsPerPage: 6,
   siteTitleMeta: "Built with Draftbox",
   siteDescriptionMeta:
@@ -16,15 +16,15 @@ module.exports = {
     navigation: [
       {
         label: "Home",
-        url: "https://ghost-novela-preview.draftbox.co/",
+        url: "https://blog.aaronward.info/",
       },
       {
         label: "Sitemap",
-        url: "https://ghost-novela-preview.draftbox.co/sitemap.xml",
+        url: "https://blog.aaronward.info/sitemap.xml",
       },
       {
         label: "RSS",
-        url: "https://ghost-novela-preview.draftbox.co/rss.xml",
+        url: "https://blog.aaronward.info/rss.xml",
       },
       {
         label: "Analytics",

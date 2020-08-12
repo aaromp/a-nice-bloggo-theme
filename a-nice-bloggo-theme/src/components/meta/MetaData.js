@@ -21,10 +21,12 @@ const MetaData = ({
   location,
   amp,
 }) => {
+  const ghostSettings = settings.allGhostSettings.edges[0].node;
   const config = settings.site.siteMetadata;
+  const ghostURL = config.siteUrl;
+  /* TODO update canonical with ghostSettings.url when added to schema */
   const canonical = url.resolve(config.siteUrl, location.pathname);
   const { ghostPost, ghostTag, ghostAuthor, ghostPage } = data;
-  settings = settings.allGhostSettings.edges[0].node;
 
   if (ghostPost) {
     return <ArticleMeta data={ghostPost} canonical={canonical} amp={amp} />;
@@ -33,15 +35,12 @@ const MetaData = ({
   } else if (ghostAuthor) {
     return <AuthorMeta data={ghostAuthor} canonical={canonical} />;
   } else if (ghostPage) {
-    return (
-      <ArticleMeta data={ghostPage} canonical={canonical} />
-    );
+    return <ArticleMeta data={ghostPage} canonical={canonical} />;
   } else {
-    title = title || config.siteTitle;
-    description = description || config.siteDescription;
-    image = image || config.coverUrl || null;
-
-    image = image ? url.resolve(config.siteUrl, image) : null;
+    title = title || ghostSettings.title;
+    description = description || ghostSettings.description;
+    image = image || ghostSettings.cover_url || null;
+    image = image ? url.resolve(ghostURL, image) : null;
 
     return (
       <WebsiteMeta
@@ -86,8 +85,7 @@ const MetaDataQuery = (props) => (
         allGhostSettings {
           edges {
             node {
-              title
-              description
+              ...GhostSettingsFields
             }
           }
         }
