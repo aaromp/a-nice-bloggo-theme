@@ -41,7 +41,7 @@ module.exports = (themeOptions) => {
         },
       },
       {
-        resolve: `gatsby-source-ghost`,
+        resolve: `@aaromp/gatsby-source-ghost`,
         options:
           process.env.NODE_ENV === `development`
             ? ghostConfig.development
