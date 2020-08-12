@@ -19,7 +19,7 @@ const WebsiteMeta = ({
   const config = settings.site.siteMetadata;
   const ghostSettings = settings.allGhostSettings.edges[0].node;
   const ghostURL = ghostSettings.url;
-  const publisherLogo = ghostURL ? url.resolve(ghostURL)
+  const publisherLogo = ghostURL ? url.resolve(ghostURL, ghostSettings.logo)
                                  : null;
 
   title = ghostSettings.title;

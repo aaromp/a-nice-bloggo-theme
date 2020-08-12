@@ -12,8 +12,8 @@ import { tags as tagsHelper } from "@tryghost/helpers";
 
 const ArticleMetaGhost = ({ data, settings, canonical, amp }) => {
   const ghostPost = data;
-  const ghostSettings = settings.allGhostSettings.edges[0].node;
   const config = settings.site.siteMetadata;
+  const ghostSettings = settings.allGhostSettings.edges[0].node;
 
   const author = getAuthorProperties(ghostPost.primary_author);
   const publicTags = _.map(

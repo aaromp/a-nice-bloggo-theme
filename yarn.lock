@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-"@aaromp/gatsby-source-ghost@^1.0.0":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@aaromp/gatsby-source-ghost/-/gatsby-source-ghost-1.0.0.tgz#46b0b7465632ec48b065653715ad54c4f01dc88d"
-  integrity sha512-JTMryTubDdtqT+aYZ96ML3wd60kzwM3aO2Uhcy4/C413xvoH/NYHD3rlqThaecQMb5m01u2Zh8P/TK4W4P0QcQ==
+"@aaromp/gatsby-source-ghost@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@aaromp/gatsby-source-ghost/-/gatsby-source-ghost-2.0.0.tgz#b174f76cf46b019e5ede5d38d60a1083a78f1342"
+  integrity sha512-Uz3xGXRJBdSTxO1dbMUZnWoTlRHpdYv3Bc8opjKUesGkUZ0rRVgnIQTd3voJN+LMABAbHXiAFMl5aE4AYaeG2A==
   dependencies:
     "@tryghost/content-api" "1.4.2"
     bluebird "3.7.2"
