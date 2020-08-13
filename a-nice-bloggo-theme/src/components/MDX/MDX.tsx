@@ -61,7 +61,7 @@ interface MDXProps {
 
 const MDX: React.FC<MDXProps> = ({ content, children, ...props }) => {
   const [colorMode] = useColorMode();
-
+  // throw new Error(content);
   return (
     <MDXProvider components={components}>
       <MDXBody>
@@ -108,8 +108,6 @@ const HeadingsCSS = css`
   h6 {
     margin: 2.4rem auto 0;
   }
-
-
 
   h1,
   h2,

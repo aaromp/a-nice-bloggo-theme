@@ -1039,7 +1039,7 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
-"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.10.5", "@babel/runtime@^7.4.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.0.0", "@babel/runtime@^7.1.2", "@babel/runtime@^7.10.2", "@babel/runtime@^7.10.3", "@babel/runtime@^7.4.2", "@babel/runtime@^7.5.5", "@babel/runtime@^7.7.2", "@babel/runtime@^7.8.4":
   version "7.11.2"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.11.2.tgz#f549c13c754cc40b87644b9fa9f09a6a95fe0736"
   integrity sha512-TeWkU52so0mPtDcaCTxNBI/IHiz0pZgr8VEFqXFtZWpYD08ZB6FaSwVAS8MKRQAP3bYKiVjwysOJgMFY28o6Tw==
@@ -1117,13 +1117,6 @@
     lodash.flattendeep "^4.4.0"
     minimatch "^3.0.4"
     react "^16.6.1"
-
-"@draftbox-co/gatsby-plugin-css-variables@0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@draftbox-co/gatsby-plugin-css-variables/-/gatsby-plugin-css-variables-0.0.3.tgz#90baf9d83509bf5fe405b94e5a21455b5e916b8d"
-  integrity sha512-6dg9hLUKaXWOLnBTZSRxBYxks3GAlFOSCp/3BrPl7RBPWk74ybcrAmNptCe2MbZHi8wUCaAhgaOH/8Jito7P0Q==
-  dependencies:
-    "@babel/runtime" "^7.10.5"
 
 "@draftbox-co/html-to-compiled-mdx@^1.0.3":
   version "1.0.3"

@@ -26,8 +26,7 @@ module.exports = ({ actions }) => {
       return {
         resolve(source) {
           if (source.html) {
-            const mdx = htmlToMdx(source.html, handlers);
-            return mdx;
+            return htmlToMdx(source.html, handlers);
           } else {
             return htmlToMdx(`<div></div>`, handlers);
           }
