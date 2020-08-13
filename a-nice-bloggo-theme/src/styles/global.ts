@@ -1,5 +1,19 @@
 import { css } from "@emotion/core";
 
+import MacabreRegularWoff from '../fonts/Macabre/Macabrev0.2-Regular.woff';
+import MacabreRegularWoffTwo from '../fonts/Macabre/Macabrev0.2-Regular.woff2';
+
+import BruphyTextLightWoff from '../fonts/BruphyText/BruphyText-Light.woff';
+import BruphyTextLightWoffTwo from '../fonts/BruphyText/BruphyText-Light.woff2';
+import BruphyTextRegularWoff from '../fonts/BruphyText/BruphyText-Regular.woff';
+import BruphyTextRegularWoffTwo from '../fonts/BruphyText/BruphyText-Regular.woff2';
+import BruphyTextSemiBoldWoff from '../fonts/BruphyText/BruphyText-SemiBold.woff';
+import BruphyTextSemiBoldWoffTwo from '../fonts/BruphyText/BruphyText-SemiBold.woff2';
+import BruphyTextBoldWoff from '../fonts/BruphyText/BruphyText-Bold.woff';
+import BruphyTextBoldWoffTwo from '../fonts/BruphyText/BruphyText-Bold.woff2';
+import BruphyTextBlackWoff from '../fonts/BruphyText/BruphyText-Black.woff';
+import BruphyTextBlackWoffTwo from '../fonts/BruphyText/BruphyText-Black.woff2';
+
 export const globalStyles = css`
   /**
    * Thanks to Benjamin De Cock
@@ -12,13 +26,68 @@ export const globalStyles = css`
     --ease-out-quart: cubic-bezier(0.165, 0.84, 0.44, 1);
     --ease-in-out-quad: cubic-bezier(0.455, 0.03, 0.515, 0.955);
     --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
+
+    --font-title: "Macabre";
+    --font-headline: "Bruphy";
+    --font-body: "Bruphy";
+    --monospace-font: "menlo"; /* TODO: pick a monospace font */
+    --system-font: "system-ui";
+
+    --font-light: 200;
+    --font-regular: 400;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-black: 800;
+
+    --accent-color: "#6166DC";
+    --accent-color-dark: "#E9DAAC";
+    --success-color: "#46B17B";
+    --success-color-dark: "#46B17B";
   }
 
+  /* TODO: remove unused fonts to speed things up */
   @font-face {
     font-family: var(--system-font);
     font-weight: var(--system-font-normal);
     font-style: normal;
   }
+
+  @font-face {
+    font-family: 'Macabre';
+    src: url('${MacabreRegularWoffTwo}') format('woff2'),
+         url('${MacabreRegularWoff}') format('woff');
+  }
+
+  @font-face {
+    font-family: 'Bruphy';
+    src: url('${BruphyTextLightWoffTwo}') format('woff2'),
+         url('${BruphyTextLightWoff}') format('woff');
+  }
+
+  @font-face {
+    font-family: 'Bruphy';
+    src: url('${BruphyTextRegularWoffTwo}') format('woff2'),
+         url('${BruphyTextRegularWoff}') format('woff');
+  }
+
+  @font-face {
+    font-family: 'Bruphy';
+    src: url('${BruphyTextSemiBoldWoffTwo}') format('woff2'),
+         url('${BruphyTextSemiBoldWoff}') format('woff');
+  }
+
+  @font-face {
+    font-family: 'Bruphy';
+    src: url('${BruphyTextBoldWoffTwo}') format('woff2'),
+         url('${BruphyTextBoldWoff}') format('woff');
+  }
+
+  @font-face {
+    font-family: 'Bruphy';
+    src: url('${BruphyTextBlackWoffTwo}') format('woff2'),
+         url('${BruphyTextBlackWoff}') format('woff');
+  }
+
 
   *,
   *:before,
@@ -42,10 +111,11 @@ export const globalStyles = css`
   }
 
   body {
-    font-family: var(--system-font);
+    font-family: var(--font-body);
     font-size: 1.6rem;
+    line-height: 2rem;
     margin: 0;
-    font-weight: var(--system-font-normal);
+    font-weight: var(--font-regular);
     height: 100%;
   }
 
@@ -77,7 +147,7 @@ export const globalStyles = css`
   textarea,
   select,
   button {
-    font-family: var(--system-font);
+    font-family: var(--font-body);
   }
 
   .underline {
@@ -99,7 +169,7 @@ export const globalStyles = css`
   pre,
   samp {
     font-family: var(--monospace-font);
-    font-weight: var(--monospace-font-normal);
+    font-weight: var(--font-regular);
   }
 
   fieldset,

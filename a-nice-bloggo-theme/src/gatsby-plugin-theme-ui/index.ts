@@ -14,7 +14,7 @@ const breakpoints = [
 ];
 
 const fonts = {
-  serif: "var(--merriweather-font)",
+  serif: "var(--font-body)",
   sansSerif: "var(--system-font)",
   monospace: "var(--monospace-font)",
 };

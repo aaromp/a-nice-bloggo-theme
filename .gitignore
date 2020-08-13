@@ -73,3 +73,7 @@ typings/
 public
 yarn-error.log
 .netlify/
+
+# Fonts
+*.woff
+*.woff2
