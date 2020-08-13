@@ -1,9 +1,5 @@
 /* eslint-disable no-console, import/no-extraneous-dependencies, prefer-const, no-shadow */
 
-require("dotenv").config();
-
-const fs = require("fs");
-
 const log = (message, section) =>
   console.log(`\n\u001B[36m${message} \u001B[4m${section}\u001B[0m\u001B[0m\n`);
 
@@ -12,8 +8,8 @@ const createPaginatedPages = require("gatsby-paginate");
 
 const templatesDirectory = path.resolve(__dirname, "../../templates");
 const templates = {
-  articles: path.resolve(templatesDirectory, "articles.template.tsx"),
-  article: path.resolve(templatesDirectory, "article.template.tsx"),
+  posts: path.resolve(templatesDirectory, "articles.template.tsx"),
+  post: path.resolve(templatesDirectory, "article.template.tsx"),
   author: path.resolve(templatesDirectory, "author.template.tsx"),
   tag: path.resolve(templatesDirectory, "tag.template.tsx"),
   page: path.resolve(templatesDirectory, "page.template.tsx"),
@@ -53,19 +49,21 @@ const byDate = (a, b) => new Date(b.dateForSEO) - new Date(a.dateForSEO);
 
 module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   const {
-    rootPath,
     basePath = "/",
     authorsPath = "/authors",
-    authorsPage = true,
-    // pageLength = 6,
-    sources = {},
   } = themeOptions;
 
   const { data } = await graphql(`
     query siteQuery {
+      allGhostSettings {
+        edges {
+          node {
+            url
+          }
+        }
+      }
       site {
         siteMetadata {
-          siteUrl
           postsPerPage
         }
       }
@@ -73,38 +71,29 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   `);
 
   const pageLength = data.site.siteMetadata.postsPerPage;
-
-  // Defaulting to look at the local MDX files as sources.
-  const { local = true, contentful = false } = sources;
+  const apiURL = data.allGhostSettings.edges[0].node.url;
 
   let authors;
-  let articles;
+  let posts;
   let tags;
   let pages;
   let ghostSettings;
 
   const dataSources = {
-    ghost: { authors: [], articles: [], tags: [], pages: [] },
+    ghost: { authors: [], posts: [], tags: [], pages: [] },
   };
 
-  if (rootPath) {
-    log("Config rootPath", rootPath);
-  } else {
-    log("Config rootPath not set, using basePath instead =>", basePath);
-  }
-
   log("Config basePath", basePath);
-  if (authorsPage) log("Config authorsPath", authorsPath);
 
   // ghost posts
   try {
-    const ghostArticles = await graphql(query.ghost.articles);
+    const ghostPosts = await graphql(query.ghost.articles);
     const ghostAuthors = await graphql(query.ghost.authors);
     const ghostTags = await graphql(query.ghost.tags);
     const ghostPages = await graphql(query.ghost.pages);
     const ghostSettingsData = await graphql(query.ghost.settings);
 
-    dataSources.ghost.articles = ghostArticles.data.articles.edges.map(
+    dataSources.ghost.articles = ghostPosts.data.articles.edges.map(
       normalize.ghost.articles
     );
 
@@ -141,7 +130,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     pathPrefix: basePath,
     createPage,
     pageLength,
-    pageTemplate: templates.articles,
+    pageTemplate: templates.posts,
     buildPath: buildPaginatedPath,
     context: {
       // authors,
@@ -170,12 +159,12 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
 
     createPage({
       path: article.slug,
-      component: templates.article,
+      component: templates.post,
       context: {
         article,
         // authors: authorsThatWroteTheArticle,
         basePath,
-        permalink: `${data.site.siteMetadata.siteUrl}${article.slug}/`,
+        permalink: `${apiURL}${article.slug}/`,
         slug: article.slug,
         id: article.id,
         title: article.title,
@@ -212,7 +201,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
       context: {
         article,
         basePath,
-        permalink: `${data.site.siteMetadata.siteUrl}${article.slug}/`,
+        permalink: `${apiURL}${article.slug}/`,
         slug: article.slug,
         id: article.id,
         title: article.title,
