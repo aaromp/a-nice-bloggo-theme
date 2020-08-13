@@ -3,10 +3,10 @@ import prism from "./prism";
 export default {
   prism,
 
-  primary: "#000",
+  primary: "#424242",
   secondary: "#73737D",
   grey: "#73737D",
-  background: "#fafafa",
+  background: "#fffffe",
   accent: "var(--accent-color)",
   hover: "rgba(0, 0, 0, 0.07)",
   gradient: "linear-gradient(180deg, rgba(217, 219, 224, 0) 0%, #D9DBE0 100%)",

@@ -9,93 +9,107 @@ import mediaqueries from "@styles/media";
  */
 
 const commonStyles = p => css`
-  font-weight: var(--font-bold);
+  font-weight: var(--font-semibold);
   color: ${p.theme.colors.primary};
-  font-family: ${p.theme.fonts.serif};
+  font-family: ${p.theme.fonts.headline};
+  margin: 0;
 `;
 
 const h1 = styled.h1`
+  font-size: 7.2rem;
+  line-height: 8rem;
   word-break: break-word;
-  font-size: 52px;
-  line-height: 1.15;
+  letter-spacing: -2%;
   ${commonStyles};
 
   ${mediaqueries.desktop`
-    font-size: 38px;
-    line-height: 1.2;
+    font-size: 7.2rem;
+    line-height: 8rem;
   `};
 
   ${mediaqueries.phablet`
-    font-size: 32px;
-    line-height: 1.3;
+    font-size: 6.4rem;
+    line-height: 7.2rem;
   `};
 `;
 
 const h2 = styled.h2`
+  font-size: 6.4rem;
+  line-height: 7.2rem;
   word-break: keep-all;
-  font-size: 32px;
-  line-height: 1.333;
+  letter-spacing: -1%;
   ${commonStyles};
 
   ${mediaqueries.desktop`
-    font-size: 21px;
+    font-size: 6.4rem;
+    line-height: 7.2rem;
   `};
 
   ${mediaqueries.tablet`
-    font-size: 24px;
-    line-height: 1.45;
+    font-size: 5.6rem;
+    line-height: 6.4rem;
   `};
 
   ${mediaqueries.phablet`
-    font-size: 22px;
+    font-size: 5.6rem;
+    line-height: 6.4rem;
   `};
 `;
 
 const h3 = styled.h3`
   word-break: keep-all;
-  font-size: 24px;
-  line-height: 1.45;
+  font-size: 5.6rem;
+  line-height: 6.4rem;
   ${commonStyles};
 
   ${mediaqueries.tablet`
-    font-size: 22px;
+    font-size: 4.8rem;
+    line-height: 5.6rem;
   `};
 
   ${mediaqueries.phablet`
-    font-size: 20px;
+    font-size: 4.8rem;
+    line-height: 5.6rem;
   `};
 `;
 
 const h4 = styled.h4`
   word-break: keep-all;
-  font-size: 18px;
-  line-height: 1.45;
+  font-size: 4rem;
+  line-height: 4.8rem;
+  letter-spacing: 1%;
+  font-weight: var(--font-bold);
   ${commonStyles};
 
   ${mediaqueries.phablet`
-    font-size: 16px;
+    font-size: 4rem;
   `};
 `;
 
 const h5 = styled.h5`
   word-break: keep-all;
-  font-size: 18px;
-  line-height: 1.45;
+  font-size: 3.2rem;
+  line-height: 4rem;
+  letter-spacing: 2%;
+  font-weight: var(--font-bold);
   ${commonStyles};
 
   ${mediaqueries.phablet`
-    font-size: 16px;
+    font-size: 3.2rem;
   `};
 `;
 
 const h6 = styled.h6`
   word-break: keep-all;
-  font-size: 16px;
-  line-height: 1.45;
+  font-size: 2.4rem;
+  line-height: 3.2rem;
+  letter-spacing: 4%;
+  font-weight: var(--font-bold);
+  text-transform: uppercase;
   ${commonStyles};
 
   ${mediaqueries.phablet`
-    font-size: 14px;
+    font-size: 2.4rem;
   `};
 `;
 

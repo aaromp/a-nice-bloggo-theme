@@ -14,6 +14,10 @@ const breakpoints = [
 ];
 
 const fonts = {
+  title: "var(--font-title)",
+  headline: "var(--font-body-semibold)",
+  body: "var(--font-body-regular)",
+  system: "var(--system-font)",
   serif: "var(--font-body)",
   sansSerif: "var(--system-font)",
   monospace: "var(--monospace-font)",

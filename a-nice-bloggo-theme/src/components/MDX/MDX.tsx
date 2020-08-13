@@ -31,7 +31,7 @@ const components = {
   img: ImageZoom,
   a: Anchor,
   blockquote: Blockquote,
-  h1: Headings.h2, // h1 reserved article title
+  h1: Headings.h1,
   h2: Headings.h2,
   h3: Headings.h3,
   h4: Headings.h4,
@@ -106,24 +106,10 @@ const HeadingsCSS = css`
   h4,
   h5,
   h6 {
-    margin: 0 auto;
+    margin: 2.4rem auto 0;
   }
 
-  h1,
-  h1 *,
-  h2,
-  h2 * {
-    margin: 25px auto 18px;
 
-    ${mediaqueries.tablet`
-      margin: 30px auto 18px;
-    `};
-  }
-
-  h3,
-  h3 * {
-    margin: 20px auto 10px;
-  }
 
   h1,
   h2,

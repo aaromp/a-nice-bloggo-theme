@@ -28,8 +28,11 @@ export const globalStyles = css`
     --ease-in-out-quart: cubic-bezier(0.77, 0, 0.175, 1);
 
     --font-title: "Macabre";
-    --font-headline: "Bruphy";
-    --font-body: "Bruphy";
+    --font-body-light: "BruphyLight";
+    --font-body-regular: "BruphyRegular";
+    --font-body-semibold: "BruphySemiBold";
+    --font-body-bold: "BruphyBold";
+    --font-body-black: "BruphyBlack";
     --monospace-font: "menlo"; /* TODO: pick a monospace font */
     --system-font: "system-ui";
 
@@ -56,36 +59,48 @@ export const globalStyles = css`
     font-family: 'Macabre';
     src: url('${MacabreRegularWoffTwo}') format('woff2'),
          url('${MacabreRegularWoff}') format('woff');
+    font-weight: var(--font-regular);
+    font-style: normal;
   }
 
   @font-face {
-    font-family: 'Bruphy';
+    font-family: 'BruphyLight';
     src: url('${BruphyTextLightWoffTwo}') format('woff2'),
          url('${BruphyTextLightWoff}') format('woff');
+    font-weight: var(--font-light);
+    font-style: normal;
   }
 
   @font-face {
-    font-family: 'Bruphy';
+    font-family: 'BruphyRegular';
     src: url('${BruphyTextRegularWoffTwo}') format('woff2'),
          url('${BruphyTextRegularWoff}') format('woff');
+    font-weight: var(--font-regular);
+    font-style: normal;
   }
 
   @font-face {
-    font-family: 'Bruphy';
+    font-family: 'BruphySemiBold';
     src: url('${BruphyTextSemiBoldWoffTwo}') format('woff2'),
          url('${BruphyTextSemiBoldWoff}') format('woff');
+    font-weight: var(--font-semibold);
+    font-style: normal;
   }
 
   @font-face {
-    font-family: 'Bruphy';
+    font-family: 'BruphyBold';
     src: url('${BruphyTextBoldWoffTwo}') format('woff2'),
          url('${BruphyTextBoldWoff}') format('woff');
+    font-weight: var(--font-bold);
+    font-style: normal;
   }
 
   @font-face {
-    font-family: 'Bruphy';
+    font-family: 'BruphyBlack';
     src: url('${BruphyTextBlackWoffTwo}') format('woff2'),
          url('${BruphyTextBlackWoff}') format('woff');
+    font-weight: var(--font-black);
+    font-style: normal;
   }
 
 
