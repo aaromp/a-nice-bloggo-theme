@@ -8,12 +8,12 @@ const createPaginatedPages = require("gatsby-paginate");
 
 const templatesDirectory = path.resolve(__dirname, "../../templates");
 const templates = {
-  posts: path.resolve(templatesDirectory, "articles.template.tsx"),
-  post: path.resolve(templatesDirectory, "article.template.tsx"),
+  posts: path.resolve(templatesDirectory, "posts.template.tsx"),
+  post: path.resolve(templatesDirectory, "post.template.tsx"),
   author: path.resolve(templatesDirectory, "author.template.tsx"),
   tag: path.resolve(templatesDirectory, "tag.template.tsx"),
   page: path.resolve(templatesDirectory, "page.template.tsx"),
-  ampPage: path.resolve(templatesDirectory, "article.template.amp.tsx"),
+  ampPage: path.resolve(templatesDirectory, "post.template.amp.tsx"),
 };
 
 const query = require("../data/data.query");

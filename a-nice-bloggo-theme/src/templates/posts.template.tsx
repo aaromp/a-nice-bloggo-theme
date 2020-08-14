@@ -14,7 +14,7 @@ import mediaqueries from "@styles/media";
 
 
 /* template for a page featuring a list of public posts */
-const PublicPostsPage: Template = ({ location, pageContext }) => {
+const PostsPage: Template = ({ location, pageContext }) => {
   const articles = pageContext.group;
 
   return (
@@ -23,17 +23,17 @@ const PublicPostsPage: Template = ({ location, pageContext }) => {
       <ArticlesHero />
       <Section narrow>
         <ArticlesList articles={articles} />
-        <PublicPostsPaginator show={pageContext.pageCount > 1}>
+        <PostsPaginator show={pageContext.pageCount > 1}>
           <Paginator {...pageContext} />
-        </PublicPostsPaginator>
+        </PostsPaginator>
       </Section>
     </Layout>
   );
 };
 
-export default PublicPostsPage;
+export default PostsPage;
 
-const PublicPostsPaginator = styled.div<{ show: boolean }>`
+const PostsPaginator = styled.div<{ show: boolean }>`
   ${(p) => p.show && `margin-top: 95px;`}
 
   ${mediaqueries.phablet`
