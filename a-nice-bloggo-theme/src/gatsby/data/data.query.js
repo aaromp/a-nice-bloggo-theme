@@ -209,6 +209,7 @@ module.exports.ghost = {
       edges {
         node {
           title
+          url
         }
       }
     }

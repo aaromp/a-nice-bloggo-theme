@@ -55,13 +55,6 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
 
   const { data } = await graphql(`
     query siteQuery {
-      allGhostSettings {
-        edges {
-          node {
-            url
-          }
-        }
-      }
       site {
         siteMetadata {
           postsPerPage
@@ -71,16 +64,16 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   `);
 
   const pageLength = data.site.siteMetadata.postsPerPage;
-  const apiURL = data.allGhostSettings.edges[0].node.url;
 
   let posts;
   let authors;
   let tags;
   let pages;
-  let ghostSettings;
+  let apiURL;
+  let websiteTitle;
 
   const dataSources = {
-    ghost: { posts: [], authors: [], tags: [], pages: [] },
+    ghost: { posts: [], authors: [], tags: [], pages: [], settings: [] },
   };
 
   log("Config basePath", basePath);
@@ -91,7 +84,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     const ghostAuthors = await graphql(query.ghost.authors);
     const ghostTags = await graphql(query.ghost.tags);
     const ghostPages = await graphql(query.ghost.pages);
-    const ghostSettingsData = await graphql(query.ghost.settings);
+    const ghostSettings= await graphql(query.ghost.settings);
 
     dataSources.ghost.posts = ghostPosts.data.posts.edges.map(
       normalize.ghost.posts
@@ -108,7 +101,8 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
 
     dataSources.ghost.tags = ghostTags.data.tags.edges.map((tag) => tag.node);
 
-    websiteTitle = ghostSettingsData.data.settings.edges[0].node.title;
+    dataSources.ghost.settings = ghostSettings.data.settings.edges[0].node;
+
   } catch (error) {
     console.log(error);
   }
@@ -121,6 +115,9 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   tags = [...dataSources.ghost.tags];
 
   pages = [...dataSources.ghost.pages];
+
+  apiURL = dataSources.ghost.settings.url;
+  websiteTitle = dataSources.ghost.settings.title;
 
   const postsThatArentSecret = posts.filter((post) => !post.secret);
 
