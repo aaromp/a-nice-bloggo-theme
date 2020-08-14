@@ -28,21 +28,6 @@ function buildPaginatedPath(index, basePath) {
   return index > 1 ? `${basePath}/page/${index}` : basePath;
 }
 
-function slugify(string, base) {
-  const slug = string
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036F]/g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/(^-|-$)+/g, "");
-
-  return `${base}/${slug}`.replace(/\/\/+/g, "/");
-}
-
-function getUniqueListBy(array, key) {
-  return [...new Map(array.map((item) => [item[key], item])).values()];
-}
-
 const byDate = (a, b) => new Date(b.dateForSEO) - new Date(a.dateForSEO);
 
 // ///////////////////////////////////////////////////////
@@ -76,9 +61,9 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     ghost: { posts: [], authors: [], tags: [], pages: [], settings: [] },
   };
 
-  log("Config basePath", basePath);
+  log(`Config basePath`, basePath);
 
-  log("Querying", "data");
+  log(`Querying`, `data`);
   try {
     const ghostPosts = await graphql(query.ghost.posts);
     const ghostAuthors = await graphql(query.ghost.authors);
@@ -126,7 +111,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   //  */
 
   // Paginataed list of all public posts.
-  log("Creating paginated list of all public posts @", basePath);
+  log(`Creating`, `post pages @ ${basePath}`);
   const publicPosts = posts.filter((post) => !post.secret);
   createPaginatedPages({
     edges: publicPosts,
@@ -135,11 +120,6 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     pageLength: pageLength,
     pathPrefix: basePath,
     buildPath: buildPaginatedPath,
-    // context: {
-    //   basePath,
-    //   skip: pageLength,
-    //   limit: pageLength,
-    // },
   });
 
   // /**
@@ -191,7 +171,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   });
 
   // Paginataed lists of all posts by author.
-  log("Creating author pages");
+  log(`Creating`, `author pages`);
   const flatAuthorNamePosts = posts.map((post) => ({
     ...post,
     authors: [...post.authors.map((author) => author.slug)],
@@ -228,57 +208,53 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
       { social: [] }
     );
 
-    const authorPath = slugify(author.slug, authorsPath);
-    log("Creating paginated lists of posts by author @", authorPath);
+    const authorPath = "author/" + author.slug;
+    log(`Creating pages @`, authorPath);
 
     createPaginatedPages({
       edges: postsByAuthor,
       createPage: createPage,
       pageTemplate: templates.author,
       pageLength: pageLength,
-      pathPrefix: "author/" + author.slug,
+      pathPrefix: authorPath,
       buildPath: buildPaginatedPath,
       context: {
         author: authorWithSocial,
-        // originalPath: authorPath,
-        // skip: pageLength,
-        // limit: pageLength,
       },
     });
   });
 
-  const postsWithFlatTagNames = posts.map((post) => ({
+  // Paginataed lists of all posts by author.
+  log("Creating", "tag pages");
+  const flatTagNamePosts = posts.map((post) => ({
     ...post,
     flatTags: [...post.tags.map((tag) => tag.slug)],
   }));
 
   tags.forEach((tag) => {
-    const postsWithTag = postsWithFlatTagNames.filter((post) =>
+    const postsWithTag = flatTagNamePosts.filter((post) =>
       post.flatTags.includes(tag.slug)
     );
 
-    const path = slugify(tag.slug, "/tags");
+    const tagPath = "tag/" + tag.slug;
+    log(`Creating pages @`, tagPath);
 
     createPaginatedPages({
       edges: postsWithTag,
-      pathPrefix: "tag/" + tag.slug,
-      createPage,
-      pageLength,
+      createPage: createPage,
       pageTemplate: templates.tag,
+      pageLength: pageLength,
+      pathPrefix: tagPath,
       buildPath: buildPaginatedPath,
       context: {
         tag: tag,
-        originalPath: path,
-        // originalPath: author.slug,
-        skip: pageLength,
-        limit: pageLength,
       },
     });
   });
 
   // Pages require special linking since they are not considered posts and are
   // not associated with an author or a tag.
-  log("Creating pages @", basePath);
+  log(`Creating`, `standalone pages @ ${basePath}`);
   pages.forEach((post, index) => {
     //   /**
     //    * We need a way to find the next artiles to suggest at the bottom of the posts page.

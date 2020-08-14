@@ -18,11 +18,6 @@ const TagPage: Template = ({ location, pageContext }) => {
   return (
     <Layout>
       <MetaData data={{ ghostTag: tag }} location={location} />
-      {/* <SEO
-        pathname={location.pathname}
-        title={author.name}
-        description={author.bio}
-      /> */}
       <Section>
         <TagHero tag={tag} />
       </Section>
