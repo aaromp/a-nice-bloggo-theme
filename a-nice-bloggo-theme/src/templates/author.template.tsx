@@ -16,15 +16,9 @@ const ArticlesPage: Template = ({ location, pageContext }) => {
   const author = pageContext.additionalContext.author;
   const articles = pageContext.group;
 
-
   return (
     <Layout>
       <MetaData data={{ ghostAuthor: author }} location={location} />
-      {/* <SEO
-        pathname={location.pathname}
-        title={author.name}
-        description={author.bio}
-      /> */}
       <Section>
         <AuthorHero author={author} />
       </Section>

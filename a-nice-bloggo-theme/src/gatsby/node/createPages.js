@@ -121,7 +121,8 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
 
   // /**
   //  * There are three types of paginated lists.
-  //  * All public posts, posts by a particular author and posts of a tag.
+  //  * Pages of public posts, pages of particular author posts and
+  //  * pages of posts with a particular tag.
   //  */
 
   // Paginataed list of all public posts.
@@ -134,6 +135,11 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     pageLength: pageLength,
     pathPrefix: basePath,
     buildPath: buildPaginatedPath,
+    // context: {
+    //   basePath,
+    //   skip: pageLength,
+    //   limit: pageLength,
+    // },
   });
 
   // /**
@@ -184,88 +190,59 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     });
   });
 
-  // Genration of pages
-
-  pages.forEach((post, index) => {
-    //   /**
-    //    * We need a way to find the next artiles to suggest at the bottom of the posts page.
-    //    * To accomplish this there is some special logic surrounding what to show next.
-    //    */
-    createPage({
-      path: post.slug,
-      component: templates.page,
-      context: {
-        post,
-        basePath,
-        permalink: `${apiURL}${post.slug}/`,
-        slug: post.slug,
-        id: post.id,
-        title: post.title,
-        canonicalUrl: post.canonical_url,
-      },
-    });
-  });
-
-  // Authors Pages builder
-
-  const postsWithFlatAuthorNames = posts.map((post) => ({
+  // Paginataed lists of all posts by author.
+  log("Creating author pages");
+  const flatAuthorNamePosts = posts.map((post) => ({
     ...post,
     authors: [...post.authors.map((author) => author.slug)],
   }));
 
   authors.forEach((author) => {
-    const postsTheAuthorHasWritten = postsWithFlatAuthorNames.filter(
+    const postsByAuthor = flatAuthorNamePosts.filter(
       (post) => post.authors.includes(author.slug)
     );
 
-    let modifiedAuthor = Object.keys(author).reduce(
-      (acc, dec) => {
-        if (dec === "twitter" && author[dec]) {
+    let authorWithSocial = Object.keys(author).reduce(
+      (accumulator, currentValue) => {
+        let isSocialMediaValue =
+          (currentValue === "twitter" || currentValue === "facebook");
+        if (isSocialMediaValue && author[currentValue]) {
           return {
-            ...acc,
+            ...accumulator,
             social: [
-              ...acc.social,
+              ...accumulator.social,
               {
-                name: "twitter",
-                url: `https://twitter.com/${author[dec]}`,
+                name: `${currentValue}`,
+                url: `https://${currentValue}.com/${author[currentValue]}`,
               },
             ],
-            [dec]: author[dec],
+            [currentValue]: author[currentValue],
           };
         }
-        if (dec === "facebook" && author[dec]) {
-          return {
-            ...acc,
-            social: [
-              ...acc.social,
-              {
-                name: "facebook",
-                url: `https://facebook.com/${author[dec]}`,
-              },
-            ],
-            [dec]: author[dec],
-          };
-        }
-        return { ...acc, social: [...acc.social], [dec]: author[dec] };
+        return {
+          ...accumulator,
+          social: [...accumulator.social],
+          [currentValue]: author[currentValue]
+        };
       },
       { social: [] }
     );
 
-    const path = slugify(author.slug, authorsPath);
+    const authorPath = slugify(author.slug, authorsPath);
+    log("Creating paginated lists of posts by author @", authorPath);
 
     createPaginatedPages({
-      edges: postsTheAuthorHasWritten,
-      pathPrefix: "author/" + author.slug,
-      createPage,
-      pageLength,
+      edges: postsByAuthor,
+      createPage: createPage,
       pageTemplate: templates.author,
+      pageLength: pageLength,
+      pathPrefix: "author/" + author.slug,
       buildPath: buildPaginatedPath,
       context: {
-        author: modifiedAuthor,
-        originalPath: path,
-        // originalPath: author.slug,
-        skip: pageLength,
-        limit: pageLength,
+        author: authorWithSocial,
+        // originalPath: authorPath,
+        // skip: pageLength,
+        // limit: pageLength,
       },
     });
   });
@@ -295,6 +272,29 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
         // originalPath: author.slug,
         skip: pageLength,
         limit: pageLength,
+      },
+    });
+  });
+
+  // Pages require special linking since they are not considered posts and are
+  // not associated with an author or a tag.
+  log("Creating pages @", basePath);
+  pages.forEach((post, index) => {
+    //   /**
+    //    * We need a way to find the next artiles to suggest at the bottom of the posts page.
+    //    * To accomplish this there is some special logic surrounding what to show next.
+    //    */
+    createPage({
+      path: post.slug,
+      component: templates.page,
+      context: {
+        post,
+        basePath,
+        permalink: `${apiURL}${post.slug}/`,
+        slug: post.slug,
+        id: post.id,
+        title: post.title,
+        canonicalUrl: post.canonical_url,
       },
     });
   });
