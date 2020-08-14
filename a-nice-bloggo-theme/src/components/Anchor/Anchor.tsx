@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 
-const Anchor = styled.a`
+const AnchorStyles = styled.a`
   transition: ${p => p.theme.colorModeTransition};
   color: ${p => p.theme.colors.accent};
 
@@ -14,5 +14,20 @@ const Anchor = styled.a`
     text-decoration: underline;
   }
 `;
+
+const Anchor: React.FC<{}> = ({children, ...props}) => {
+  // workaround for MDX breaking footnotes
+  // TODO: consider removing MDX...
+  const isFootnote = props.href.startsWith('#fnref');
+  if (isFootnote) {
+    props.id = props.href.replace('#', '').replace('ref', '');
+  }
+
+  return (
+    <AnchorStyles  {...props}>
+      {children}
+    </AnchorStyles>
+  );
+};
 
 export default Anchor;

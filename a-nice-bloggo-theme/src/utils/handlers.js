@@ -3,6 +3,66 @@ const link = require("hast-util-to-mdast/lib/handlers/link");
 var visit = require("unist-util-visit");
 const fs = require("fs");
 
+function abbr(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function b(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function cite(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function dfn(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function i(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function ins(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function kbd(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function mark(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function q(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function del(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function samp(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function small(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function sub(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function sup(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
+function u(h, node) {
+  return h(node, "html", toHtml(node, { space: "html" }));
+}
+
 function iframe(h, node) {
   return h(node, "html", toHtml(node, { space: "html" }));
 }
@@ -90,4 +150,25 @@ function figure(h, node) {
   }
 }
 
-module.exports = { iframe, figcaption, video, audio, figure };
+module.exports = {
+  abbr,
+  b,
+  cite,
+  dfn,
+  i,
+  ins,
+  kbd,
+  mark,
+  q,
+  del,
+  samp,
+  small,
+  sub,
+  sup,
+  u,
+  iframe,
+  figcaption,
+  video,
+  audio,
+  figure
+};

@@ -172,7 +172,7 @@ module.exports = (themeOptions) => {
       {
         resolve: `gatsby-plugin-remove-generator`,
         options: {
-          content: `Draftbox`,
+          content: `Aaron Ward`,
         },
       },
     ],
