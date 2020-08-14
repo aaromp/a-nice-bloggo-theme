@@ -73,28 +73,28 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   const pageLength = data.site.siteMetadata.postsPerPage;
   const apiURL = data.allGhostSettings.edges[0].node.url;
 
-  let authors;
   let posts;
+  let authors;
   let tags;
   let pages;
   let ghostSettings;
 
   const dataSources = {
-    ghost: { authors: [], posts: [], tags: [], pages: [] },
+    ghost: { posts: [], authors: [], tags: [], pages: [] },
   };
 
   log("Config basePath", basePath);
 
   // ghost posts
   try {
-    const ghostPosts = await graphql(query.ghost.articles);
+    const ghostPosts = await graphql(query.ghost.posts);
     const ghostAuthors = await graphql(query.ghost.authors);
     const ghostTags = await graphql(query.ghost.tags);
     const ghostPages = await graphql(query.ghost.pages);
     const ghostSettingsData = await graphql(query.ghost.settings);
 
-    dataSources.ghost.articles = ghostPosts.data.articles.edges.map(
-      normalize.ghost.articles
+    dataSources.ghost.posts = ghostPosts.data.posts.edges.map(
+      normalize.ghost.posts
     );
 
     // Normalize author here if required
@@ -103,7 +103,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     );
 
     dataSources.ghost.pages = ghostPages.data.pages.edges.map(
-      normalize.ghost.articles
+      normalize.ghost.posts
     );
 
     dataSources.ghost.tags = ghostTags.data.tags.edges.map((tag) => tag.node);
@@ -113,8 +113,8 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     console.log(error);
   }
 
-  // Combining together all the articles from different sources
-  articles = [...dataSources.ghost.articles].sort(byDate);
+  // Combining together all the posts from different sources
+  posts = [...dataSources.ghost.posts].sort(byDate);
 
   authors = [...dataSources.ghost.authors];
 
@@ -122,11 +122,11 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
 
   pages = [...dataSources.ghost.pages];
 
-  const articlesThatArentSecret = articles.filter((article) => !article.secret);
+  const postsThatArentSecret = posts.filter((post) => !post.secret);
 
-  log("Creating", "articles page");
+  log("Creating", "posts page");
   createPaginatedPages({
-    edges: articlesThatArentSecret,
+    edges: postsThatArentSecret,
     pathPrefix: basePath,
     createPage,
     pageLength,
@@ -141,34 +141,34 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   });
 
   // /**
-  //  * Once the list of articles have bene created, we need to make individual article posts.
+  //  * Once the list of posts have bene created, we need to make individual post posts.
   //  * To do this, we need to find the corresponding authors since we allow for co-authors.
   //  */
-  articles.forEach((article, index) => {
+  posts.forEach((post, index) => {
     //   /**
-    //    * We need a way to find the next artiles to suggest at the bottom of the articles page.
+    //    * We need a way to find the next artiles to suggest at the bottom of the posts page.
     //    * To accomplish this there is some special logic surrounding what to show next.
     //    */
-    let next = articlesThatArentSecret.slice(index + 1, index + 3);
-    // If it's the last item in the list, there will be no articles. So grab the first 2
-    if (next.length === 0) next = articlesThatArentSecret.slice(0, 2);
-    // If there's 1 item in the list, grab the first article
-    if (next.length === 1 && articlesThatArentSecret.length !== 2)
-      next = [...next, articlesThatArentSecret[0]];
-    if (articlesThatArentSecret.length === 1) next = [];
+    let next = postsThatArentSecret.slice(index + 1, index + 3);
+    // If it's the last item in the list, there will be no posts. So grab the first 2
+    if (next.length === 0) next = postsThatArentSecret.slice(0, 2);
+    // If there's 1 item in the list, grab the first post
+    if (next.length === 1 && postsThatArentSecret.length !== 2)
+      next = [...next, postsThatArentSecret[0]];
+    if (postsThatArentSecret.length === 1) next = [];
 
     createPage({
-      path: article.slug,
+      path: post.slug,
       component: templates.post,
       context: {
-        article,
-        // authors: authorsThatWroteTheArticle,
+        post,
+        // authors: authorsThatWroteThePost,
         basePath,
-        permalink: `${apiURL}${article.slug}/`,
-        slug: article.slug,
-        id: article.id,
-        title: article.title,
-        canonicalUrl: article.canonical_url,
+        permalink: `${apiURL}${post.slug}/`,
+        slug: post.slug,
+        id: post.id,
+        title: post.title,
+        canonicalUrl: post.canonical_url,
         next,
       },
     });
@@ -176,12 +176,12 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
 
   // Generation of Amp Pages
 
-  articles.forEach((article) => {
+  posts.forEach((post) => {
     createPage({
-      path: `${article.slug}/amp`,
+      path: `${post.slug}/amp`,
       component: templates.ampPage,
       context: {
-        slug: article.slug,
+        slug: post.slug,
         title: websiteTitle,
         amp: true,
       },
@@ -190,36 +190,36 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
 
   // Genration of pages
 
-  pages.forEach((article, index) => {
+  pages.forEach((post, index) => {
     //   /**
-    //    * We need a way to find the next artiles to suggest at the bottom of the articles page.
+    //    * We need a way to find the next artiles to suggest at the bottom of the posts page.
     //    * To accomplish this there is some special logic surrounding what to show next.
     //    */
     createPage({
-      path: article.slug,
+      path: post.slug,
       component: templates.page,
       context: {
-        article,
+        post,
         basePath,
-        permalink: `${apiURL}${article.slug}/`,
-        slug: article.slug,
-        id: article.id,
-        title: article.title,
-        canonicalUrl: article.canonical_url,
+        permalink: `${apiURL}${post.slug}/`,
+        slug: post.slug,
+        id: post.id,
+        title: post.title,
+        canonicalUrl: post.canonical_url,
       },
     });
   });
 
   // Authors Pages builder
 
-  const articlesWithFlatAuthorNames = articles.map((article) => ({
-    ...article,
-    authors: [...article.authors.map((author) => author.slug)],
+  const postsWithFlatAuthorNames = posts.map((post) => ({
+    ...post,
+    authors: [...post.authors.map((author) => author.slug)],
   }));
 
   authors.forEach((author) => {
-    const articlesTheAuthorHasWritten = articlesWithFlatAuthorNames.filter(
-      (article) => article.authors.includes(author.slug)
+    const postsTheAuthorHasWritten = postsWithFlatAuthorNames.filter(
+      (post) => post.authors.includes(author.slug)
     );
 
     let modifiedAuthor = Object.keys(author).reduce(
@@ -258,7 +258,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     const path = slugify(author.slug, authorsPath);
 
     createPaginatedPages({
-      edges: articlesTheAuthorHasWritten,
+      edges: postsTheAuthorHasWritten,
       pathPrefix: "author/" + author.slug,
       createPage,
       pageLength,
@@ -274,20 +274,20 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     });
   });
 
-  const articlesWithFlatTagNames = articles.map((article) => ({
-    ...article,
-    flatTags: [...article.tags.map((tag) => tag.slug)],
+  const postsWithFlatTagNames = posts.map((post) => ({
+    ...post,
+    flatTags: [...post.tags.map((tag) => tag.slug)],
   }));
 
   tags.forEach((tag) => {
-    const articlesWithTag = articlesWithFlatTagNames.filter((article) =>
-      article.flatTags.includes(tag.slug)
+    const postsWithTag = postsWithFlatTagNames.filter((post) =>
+      post.flatTags.includes(tag.slug)
     );
 
     const path = slugify(tag.slug, "/tags");
 
     createPaginatedPages({
-      edges: articlesWithTag,
+      edges: postsWithTag,
       pathPrefix: "tag/" + tag.slug,
       createPage,
       pageLength,

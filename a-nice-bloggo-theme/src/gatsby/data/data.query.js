@@ -11,8 +11,8 @@ const GatsbyFluid_withWebp = `
 `;
 
 module.exports.ghost = {
-  articles: `{
-    articles: allGhostPost(
+  posts: `{
+    posts: allGhostPost(
       sort: {fields: [featured, published_at], order: [DESC, DESC]}
       filter: { slug: { ne: "data-schema" } }
     ) {
@@ -90,6 +90,34 @@ module.exports.ghost = {
               }
             }
           }
+        }
+      }
+    }
+  }`,
+  authors: `{
+    authors: allGhostAuthor {
+      edges {
+        node {
+          bio
+          name
+          slug
+          postCount
+          profile_image
+          twitter
+          facebook
+        }
+      }
+    }
+  }`,
+  tags: `{
+    tags: allGhostTag {
+      edges {
+        node {
+          name
+          slug
+          description
+          postCount
+          feature_image
         }
       }
     }
@@ -172,34 +200,6 @@ module.exports.ghost = {
               }
             }
           }
-        }
-      }
-    }
-  }`,
-  authors: `{
-    authors: allGhostAuthor {
-      edges {
-        node {
-          bio
-          name
-          slug
-          postCount
-          profile_image
-          twitter
-          facebook
-        }
-      }
-    }
-  }`,
-  tags: `{
-    tags: allGhostTag {
-      edges {
-        node {
-          name
-          slug
-          description
-          postCount
-          feature_image
         }
       }
     }

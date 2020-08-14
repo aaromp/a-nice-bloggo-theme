@@ -61,25 +61,25 @@ const Article: Template = ({ pageContext, location }) => {
   const results = useStaticQuery(siteQuery);
   const name = results.ghostSettings.title;
 
-  const { article, authors, next } = pageContext;
+  const { post, authors, next } = pageContext;
 
-  const twitterShareUrl = `https://twitter.com/share?text=${article.title}&url=${href}`;
+  const twitterShareUrl = `https://twitter.com/share?text=${post.title}&url=${href}`;
 
   const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${href}`;
 
-  const linkedInShareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${href}&title=${article.title}`;
+  const linkedInShareUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${href}&title=${post.title}`;
 
-  const mailShareUrl = `mailto:?subject=${article.title}&body=${href}`;
+  const mailShareUrl = `mailto:?subject=${post.title}&body=${href}`;
 
-  let pinterestShareUrl = `https://www.pinterest.com/pin/create/button/?url=${href}&description=${article.title}`;
+  let pinterestShareUrl = `https://www.pinterest.com/pin/create/button/?url=${href}&description=${post.title}`;
 
-  if (article.localFeatureImage && article.localFeatureImage.publicURL) {
+  if (post.localFeatureImage && post.localFeatureImage.publicURL) {
     pinterestShareUrl += `&media=${origin +
-      article.localFeatureImage.publicURL}`;
+      post.localFeatureImage.publicURL}`;
   }
 
   const whatsAppShareUrl = `https://wa.me/?text=${encodeURIComponent(
-    article.title + "\n" + href
+    post.title + "\n" + href
   )}`;
 
   useEffect(() => {
@@ -118,23 +118,22 @@ const Article: Template = ({ pageContext, location }) => {
 
   return (
     <Layout>
-      <MetaData data={{ ghostPost: article }} location={location} />
-      <ArticleHero article={article} authors={article.authors} />
+      <MetaData data={{ ghostPost: post }} location={location} />
+      <ArticleHero article={post} authors={post.authors} />
       <ArticleAside contentHeight={contentHeight}>
       </ArticleAside>
       <MobileControls>
         <ArticleControls />
       </MobileControls>
-      {/* <div dangerouslySetInnerHTML={{__html: article.body}}></div> */}
       <ArticleBody
-        className={Object.keys(article.hero.full).length === 0 ? "no-hero" : ""}
+        className={Object.keys(post.hero.full).length === 0 ? "no-hero" : ""}
         ref={contentSectionRef}
       >
-        <MDXRenderer content={article.body}>
+        <MDXRenderer content={post.body}>
           <ArticleShare />
         </MDXRenderer>
         <TagsContainer>
-          {article.tags.map((tag, i) => (
+          {post.tags.map((tag, i) => (
             <Tag key={i} to={`/tag/${tag.slug}`} as={Link}>
               {tag.name}
             </Tag>
@@ -201,7 +200,7 @@ const Article: Template = ({ pageContext, location }) => {
       <Subscription />
       {next.length > 0 && (
         <NextArticle narrow>
-          <FooterNext>More articles from {name}</FooterNext>
+          <FooterNext>More posts from {name}</FooterNext>
           <ArticlesNext articles={next} />
           <FooterSpacer />
         </NextArticle>

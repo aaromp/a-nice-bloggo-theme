@@ -2,12 +2,12 @@
 
 /**
  * In order to improve the authoring experience we'll set a fallback for hero images
- * when they're not provided. This will allow you to write articles without immediately
+ * when they're not provided. This will allow you to write posts without immediately
  * adding a hero image.
  *
  * @param {Object} heroSource
  */
-function normalizeHero(article) {
+function normalizeHero(post) {
   let hero = {
     full: {},
     regular: {},
@@ -16,19 +16,19 @@ function normalizeHero(article) {
   };
 
   if (
-    article.hero &&
-    article.hero.full &&
-    article.hero.narrow &&
-    article.hero.seo
+    post.hero &&
+    post.hero.full &&
+    post.hero.narrow &&
+    post.hero.seo
   ) {
     hero = {
-      full: article.hero.full.fluid,
-      regular: article.hero.regular.fluid,
-      narrow: article.hero.narrow.fluid,
-      seo: article.hero.seo.fixed,
+      full: post.hero.full.fluid,
+      regular: post.hero.regular.fluid,
+      narrow: post.hero.narrow.fluid,
+      seo: post.hero.seo.fixed,
     };
   } else {
-    console.log("\u001B[33m", `Missing hero for "${article.title}"`);
+    console.log("\u001B[33m", `Missing hero for "${post.title}"`);
   }
 
   return hero;
@@ -55,10 +55,10 @@ function normalizeAvatar(author) {
 }
 
 module.exports.ghost = {
-  articles: ({ node: article }) => {
+  posts: ({ node: post }) => {
     return {
-      ...article,
-      hero: normalizeHero(article),
+      ...post,
+      hero: normalizeHero(post),
     };
   },
   authors: ({ node: author }) => {
@@ -68,4 +68,3 @@ module.exports.ghost = {
     };
   },
 };
-
