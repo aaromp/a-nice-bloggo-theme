@@ -18,8 +18,8 @@ const indexPage: Template = ({ location, pageContext }) => {
   const posts = pageContext.group;
 
   return (
-    <MetaData location={location} />
     <Layout>
+      <MetaData location={location} />
       <ArticlesHero />
       <Section narrow>
         <ArticlesList articles={posts} />
