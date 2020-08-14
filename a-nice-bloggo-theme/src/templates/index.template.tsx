@@ -14,26 +14,26 @@ import mediaqueries from "@styles/media";
 
 
 /* template for a page featuring a list of public posts */
-const PostsPage: Template = ({ location, pageContext }) => {
-  const articles = pageContext.group;
+const indexPage: Template = ({ location, pageContext }) => {
+  const posts = pageContext.group;
 
   return (
+    <MetaData location={location} />
     <Layout>
-      <MetaData location={location} />
       <ArticlesHero />
       <Section narrow>
-        <ArticlesList articles={articles} />
-        <PostsPaginator show={pageContext.pageCount > 1}>
+        <ArticlesList articles={posts} />
+        <IndexPaginator show={pageContext.pageCount > 1}>
           <Paginator {...pageContext} />
-        </PostsPaginator>
+        </IndexPaginator>
       </Section>
     </Layout>
   );
 };
 
-export default PostsPage;
+export default indexPage;
 
-const PostsPaginator = styled.div<{ show: boolean }>`
+const IndexPaginator = styled.div<{ show: boolean }>`
   ${(p) => p.show && `margin-top: 95px;`}
 
   ${mediaqueries.phablet`
