@@ -78,7 +78,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
 
   log("Config basePath", basePath);
 
-  // ghost posts
+  log("Querying", "data");
   try {
     const ghostPosts = await graphql(query.ghost.posts);
     const ghostAuthors = await graphql(query.ghost.authors);
@@ -107,7 +107,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     console.log(error);
   }
 
-  // Combining together all the posts from different sources
+  // Combining page data from different sources
   posts = [...dataSources.ghost.posts].sort(byDate);
 
   authors = [...dataSources.ghost.authors];
@@ -119,22 +119,21 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   apiURL = dataSources.ghost.settings.url;
   websiteTitle = dataSources.ghost.settings.title;
 
-  const postsThatArentSecret = posts.filter((post) => !post.secret);
+  // /**
+  //  * There are three types of paginated lists.
+  //  * All public posts, posts by a particular author and posts of a tag.
+  //  */
 
-  log("Creating", "posts page");
+  // Paginataed list of all public posts.
+  log("Creating paginated list of all public posts @", basePath);
+  const publicPosts = posts.filter((post) => !post.secret);
   createPaginatedPages({
-    edges: postsThatArentSecret,
-    pathPrefix: basePath,
-    createPage,
-    pageLength,
+    edges: publicPosts,
+    createPage: createPage,
     pageTemplate: templates.posts,
+    pageLength: pageLength,
+    pathPrefix: basePath,
     buildPath: buildPaginatedPath,
-    context: {
-      // authors,
-      basePath,
-      skip: pageLength,
-      limit: pageLength,
-    },
   });
 
   // /**
@@ -146,13 +145,13 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     //    * We need a way to find the next artiles to suggest at the bottom of the posts page.
     //    * To accomplish this there is some special logic surrounding what to show next.
     //    */
-    let next = postsThatArentSecret.slice(index + 1, index + 3);
+    let next = publicPosts.slice(index + 1, index + 3);
     // If it's the last item in the list, there will be no posts. So grab the first 2
-    if (next.length === 0) next = postsThatArentSecret.slice(0, 2);
+    if (next.length === 0) next = publicPosts.slice(0, 2);
     // If there's 1 item in the list, grab the first post
-    if (next.length === 1 && postsThatArentSecret.length !== 2)
-      next = [...next, postsThatArentSecret[0]];
-    if (postsThatArentSecret.length === 1) next = [];
+    if (next.length === 1 && publicPosts.length !== 2)
+      next = [...next, publicPosts[0]];
+    if (publicPosts.length === 1) next = [];
 
     createPage({
       path: post.slug,

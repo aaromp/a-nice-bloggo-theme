@@ -8,33 +8,32 @@ import Paginator from "@components/Navigation/Navigation.Paginator";
 import ArticlesHero from "../sections/articles/Articles.Hero";
 import ArticlesList from "../sections/articles/Articles.List";
 
-import { Template, IAuthor } from "@types";
+import { Template} from "@types";
 import { MetaData } from "@components/meta";
 import mediaqueries from "@styles/media";
 
 
-/* template for the main page featuring a list of list of articles */
-const ArticlesPage: Template = ({ location, pageContext }) => {
+/* template for a page featuring a list of public posts */
+const PublicPostsPage: Template = ({ location, pageContext }) => {
   const articles = pageContext.group;
 
   return (
     <Layout>
       <MetaData location={location} />
-      {/* <SEO pathname={location.pathname} /> */}
       <ArticlesHero />
       <Section narrow>
         <ArticlesList articles={articles} />
-        <ArticlesPaginator show={pageContext.pageCount > 1}>
+        <PublicPostsPaginator show={pageContext.pageCount > 1}>
           <Paginator {...pageContext} />
-        </ArticlesPaginator>
+        </PublicPostsPaginator>
       </Section>
     </Layout>
   );
 };
 
-export default ArticlesPage;
+export default PublicPostsPage;
 
-const ArticlesPaginator = styled.div<{ show: boolean }>`
+const PublicPostsPaginator = styled.div<{ show: boolean }>`
   ${(p) => p.show && `margin-top: 95px;`}
 
   ${mediaqueries.phablet`
