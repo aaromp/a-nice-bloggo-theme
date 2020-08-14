@@ -42,8 +42,7 @@ const Page: Template = ({ pageContext, location }) => {
 
   const [hasCalculated, setHasCalculated] = useState<boolean>(false);
   const [contentHeight, setContentHeight] = useState<number>(0);
-
-  const { article } = pageContext;
+  const article = pageContext.post;
 
   const [href, sethref] = useState("");
   const [origin, setOrigin] = useState("");

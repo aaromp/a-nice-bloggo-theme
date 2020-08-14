@@ -109,6 +109,7 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
   //  * Pages of public posts, pages of particular author posts and
   //  * pages of posts with a particular tag.
   //  */
+  log(`Creating`, `post pages`);
 
   // Paginataed list of all public posts.
   log(`Creating`, `post pages @ ${basePath}`);
@@ -120,54 +121,6 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     pageLength: pageLength,
     pathPrefix: basePath,
     buildPath: buildPaginatedPath,
-  });
-
-  // /**
-  //  * Once the list of posts have bene created, we need to make individual post posts.
-  //  * To do this, we need to find the corresponding authors since we allow for co-authors.
-  //  */
-  posts.forEach((post, index) => {
-    //   /**
-    //    * We need a way to find the next artiles to suggest at the bottom of the posts page.
-    //    * To accomplish this there is some special logic surrounding what to show next.
-    //    */
-    let next = publicPosts.slice(index + 1, index + 3);
-    // If it's the last item in the list, there will be no posts. So grab the first 2
-    if (next.length === 0) next = publicPosts.slice(0, 2);
-    // If there's 1 item in the list, grab the first post
-    if (next.length === 1 && publicPosts.length !== 2)
-      next = [...next, publicPosts[0]];
-    if (publicPosts.length === 1) next = [];
-
-    createPage({
-      path: post.slug,
-      component: templates.post,
-      context: {
-        post,
-        // authors: authorsThatWroteThePost,
-        basePath,
-        permalink: `${apiURL}${post.slug}/`,
-        slug: post.slug,
-        id: post.id,
-        title: post.title,
-        canonicalUrl: post.canonical_url,
-        next,
-      },
-    });
-  });
-
-  // Generation of Amp Pages
-
-  posts.forEach((post) => {
-    createPage({
-      path: `${post.slug}/amp`,
-      component: templates.ampPage,
-      context: {
-        slug: post.slug,
-        title: websiteTitle,
-        amp: true,
-      },
-    });
   });
 
   // Paginataed lists of all posts by author.
@@ -252,10 +205,61 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
     });
   });
 
+  log(`Creating`, `standalone pages`);
+  // /**
+  //  * Once the list of posts have bene created, we need to make standalone post posts.
+  //  * To do this, we need to find the corresponding authors since we allow for co-authors.
+  //  */
+  log(`Creating`, `posts`);
+  posts.forEach((post, index) => {
+    //   /**
+    //    * We need a way to find the next artiles to suggest at the bottom of the posts page.
+    //    * To accomplish this there is some special logic surrounding what to show next.
+    //    */
+    let next = publicPosts.slice(index + 1, index + 3);
+    // If it's the last item in the list, there will be no posts. So grab the first 2
+    if (next.length === 0) next = publicPosts.slice(0, 2);
+    // If there's 1 item in the list, grab the first post
+    if (next.length === 1 && publicPosts.length !== 2)
+    next = [...next, publicPosts[0]];
+    if (publicPosts.length === 1) next = [];
+
+    createPage({
+      path: post.slug,
+      component: templates.post,
+      context: {
+        post,
+        // authors: authorsThatWroteThePost,
+        basePath,
+        permalink: `${apiURL}${post.slug}/`,
+        slug: post.slug,
+        id: post.id,
+        title: post.title,
+        canonicalUrl: post.canonical_url,
+        next,
+      },
+    });
+  });
+
+  // AMP pages
+  log(`Creating`, `amp posts`);
+  posts.forEach((post) => {
+    createPage({
+      path: `${post.slug}/amp`,
+      component: templates.ampPage,
+      context: {
+        slug: post.slug,
+        title: websiteTitle,
+        amp: true,
+      },
+    });
+  });
+
   // Pages require special linking since they are not considered posts and are
   // not associated with an author or a tag.
-  log(`Creating`, `standalone pages @ ${basePath}`);
+  log(`Creating`, `pages`);
   pages.forEach((post, index) => {
+    log(`Creating page @`, `${post.slug}`);
     //   /**
     //    * We need a way to find the next artiles to suggest at the bottom of the posts page.
     //    * To accomplish this there is some special logic surrounding what to show next.
@@ -264,8 +268,8 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
       path: post.slug,
       component: templates.page,
       context: {
-        post,
-        basePath,
+        post: post,
+        basePath: basePath,
         permalink: `${apiURL}${post.slug}/`,
         slug: post.slug,
         id: post.id,
@@ -274,4 +278,5 @@ module.exports = async ({ actions: { createPage }, graphql }, themeOptions) => {
       },
     });
   });
+
 };
